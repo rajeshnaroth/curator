@@ -1,2 +1,2 @@
 # curator
-An application that presents curated content. Youtube meets Netflix.
+A web application that presents curated content. Youtube meets Netflix.
