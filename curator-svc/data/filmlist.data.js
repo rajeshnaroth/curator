@@ -1,0 +1,34 @@
+module.exports = [
+    {
+        genre:"Drama",
+        films:[
+            {
+                id:1,
+                title:'Film1'
+            },{
+                id:2,
+                title:'Film2'
+            },{
+                id:3,
+                title:'Film3'
+            },{
+                id:4,
+                title:'Film4'
+            }
+        ]
+    },{
+        genre:"Horror",
+        films:[
+            {
+                id:1,
+                title:'Film1'
+            },{
+                id:2,
+                title:'Film2'
+            },{
+                id:3,
+                title:'Film3'
+            }
+        ]
+    }
+]
