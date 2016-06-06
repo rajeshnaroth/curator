@@ -1,0 +1,51 @@
+{
+  "name": "curator-web",
+  "version": "1.0.0",
+  "description": "Web app for the festival show",
+  "main": "index.js",
+  "scripts": {
+    "start":"node server/app.js",
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajeshnaroth/curator.git"
+  },
+  "author": "Rajesh Naroth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rajeshnaroth/curator/issues"
+  },
+  "homepage": "https://github.com/rajeshnaroth/curator#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
+    "redux": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "expect": "^1.20.1",
+    "express": "^4.13.4",
+    "file-loader": "^0.8.5",
+    "gulp": "^3.9.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-cli": "^1.0.0",
+    "karma-mocha": "^1.0.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.5.3",
+    "node-sass": "^3.7.0",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
