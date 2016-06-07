@@ -5,6 +5,10 @@ var express = require('express');
 var path = require('path');
 
 var app = express();
+var webpack = require('webpack')
+var config = require('../webpack.config');
+var webpackDevMiddleware = require('webpack-dev-middleware')
+var webpackHotMiddleware = require('webpack-hot-middleware')
 var routes = require('./routes/index');
 var port = 5000;
 
@@ -15,6 +19,16 @@ app.use('/images', express.static('images'));
 
 //app.use('/css', express.static(__dirname + '/src/css'));
 app.use('/', routes);
+
+//Webpack config
+var compiler = webpack(config);
+app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    stats: {colors: true}
+}));
+app.use(webpackHotMiddleware(compiler, {
+    log: console.log
+}));
 
 app.listen(port, function () {
     console.log('Application runnign on port ', port);
