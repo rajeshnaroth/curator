@@ -17,8 +17,10 @@ Install node from https://nodejs.org. This will also install npm
 
 ####Step 4. Run the express server
 
+
     npm start
     open http://localhost:5000/ #This is where your app is running
+In dev mode express will run using webpack middleware. Check
 
 ###For those who are starting new
 You will need to install git. I recommend using brew.

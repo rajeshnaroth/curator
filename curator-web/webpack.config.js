@@ -5,9 +5,10 @@ var APP_DIR = path.resolve(__dirname, 'src');
 var DIST_DIR = path.resolve(__dirname, 'dist');
 module.exports = {
     entry:APP_DIR + '/js/index.js',
-    output:{filename:DIST_DIR + '/js/bundle.js'},
-    resolve: {
-        extensions: ['', '.js', '.jsx']
+    output:{
+        path:DIST_DIR,
+        publicPath: '/assets/',
+        filename:'bundle.js'
     },
     module:{
         loaders:[
@@ -17,14 +18,12 @@ module.exports = {
                 query:{
                     presets:['es2015', 'react']
                 }
-            },
-            {
+            }, {
                 test:/\.scss$/,
                 loaders:['style', 'css', 'sass'],
                 include: APP_DIR,
-                exclude:/(node_modules|bower_components)/
-            },
-            {
+                exclude:/(node_modules)/
+            }, {
                 //.url loader will bundle up the image..
                 //test: /\.png$/, loader: "url-loader?mimetype=image/png"
                 test: /\.png$/, loader: "file?name=images/[hash].[ext]?"
@@ -32,5 +31,7 @@ module.exports = {
         ]
     },
     externals: { 'React': 'react'},
-    resolve: {extensions: ['', '.js', '.jsx']}
+    resolve: {
+        extensions: ['', '.js', '.jsx']
+    }
 }

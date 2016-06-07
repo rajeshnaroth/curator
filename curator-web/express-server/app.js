@@ -31,5 +31,5 @@ app.use(webpackHotMiddleware(compiler, {
 }));
 
 app.listen(port, function () {
-    console.log('Application runnign on port ', port);
+    console.log('Application running on port ', port);
 });

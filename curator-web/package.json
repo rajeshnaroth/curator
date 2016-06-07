@@ -4,8 +4,8 @@
   "description": "Web app for the festival show",
   "main": "index.js",
   "scripts": {
-    "start":"node server/app.js",
-    "test": "grunt test"
+    "start": "node express-server/app.js",
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,8 @@
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.10.0"
   }
 }
