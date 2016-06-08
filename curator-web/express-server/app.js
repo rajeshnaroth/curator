@@ -14,7 +14,8 @@ var port = 5000;
 
 // app.use(express.static(__dirname + 'dist'));
 app.use('/dist', express.static('dist'));
-app.use('/vendor', express.static('node_modules'));
+app.use('/vendor', express.static(__dirname + '/../node_modules'));
+console.log("=================== ", __dirname + '/node_modules');
 app.use('/images', express.static('images'));
 
 //app.use('/css', express.static(__dirname + '/src/css'));
