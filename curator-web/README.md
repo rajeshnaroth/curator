@@ -14,13 +14,26 @@ Install node from https://nodejs.org. This will also install npm
 ####Step 3. Package application
 
 	webpack
+  webpack --progress --colors --watch
 
 ####Step 4. Run the express server
-
 
     npm start
     open http://localhost:5000/ #This is where your app is running
 In dev mode express will run using webpack middleware. Check
+
+##### Karma tests
+# Do not use your global installation if it is not the exact version in package.json
+node_modules/karma-cli/bin/karma start
+
+### Day to day dev
+cd to curator-web
+run the following in different console tabs
+    npm start
+    webpack --progress --colors --watch
+    node_modules/karma-cli/bin/karma start
+
+This will free you up from having to keep starting and restarting app, webpack-ing and karma tests
 
 ###For those who are starting new
 You will need to install git. I recommend using brew.
@@ -39,4 +52,3 @@ cd to your projects folder:
     npm start
     open http://localhost:5000/
 
-##### Karma tests are stubs only. This was more of an exercise in figuring out react/redux

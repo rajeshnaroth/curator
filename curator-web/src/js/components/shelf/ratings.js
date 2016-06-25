@@ -1,7 +1,8 @@
 import React from 'react'
+import _ from 'lodash'
 
-var Title = ({text}) => {
-    return <h4>{text}</h4>;
+var Ratings = ({value}) => {
+    return <h4>{_.times(value, () => '@')}</h4>;
 }
 
-export default Title;
+export default Ratings;
