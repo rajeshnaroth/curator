@@ -14,15 +14,16 @@ module.exports = {
         loaders:[
             {
                 test : /\.js$/,
+                include: APP_DIR,
                 loader : 'babel',
                 query:{
                     presets:['es2015', 'react']
                 }
             }, {
                 test:/\.scss$/,
-                loaders:['style', 'css', 'sass'],
                 include: APP_DIR,
-                exclude:/(node_modules)/
+                exclude:/(node_modules)/,
+                loaders:['style', 'css', 'sass']
             }, {
                 //.url loader will bundle up the image..
                 //test: /\.png$/, loader: "url-loader?mimetype=image/png"

@@ -1,7 +1,9 @@
 import React from 'react'
 
-var Title = ({text}) => {
-    return <h4>{text}</h4>;
+const Title = ({text}) => {
+    let styles = {
+        textAlign:'center'
+    }
+    return <h4 style={styles}>{text}</h4>;
 }
-
-export default Title;
+export default Title

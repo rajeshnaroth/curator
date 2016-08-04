@@ -4,7 +4,7 @@
   "description": "Web app for the festival show",
   "main": "index.js",
   "scripts": {
-    "start": "node express-server/app.js",
+    "start": "node express-server/ui-server.js",
     "test": "gulp test"
   },
   "repository": {

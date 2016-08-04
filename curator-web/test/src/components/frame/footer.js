@@ -11,6 +11,6 @@ describe('Footer functional component', function () {
         var wrappedComp = testUtils.renderIntoDocument(<div><Footer/></div>);
         var comp = findDOMNode(wrappedComp).children[0];
         expect(comp).toExist();
-        expect(comp.childNodes.length).toEqual(4);
+        expect(comp.childNodes.length).toEqual(3);
     });
 });
