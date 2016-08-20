@@ -7,7 +7,10 @@ body {
   margin:0;
   color:$mainTextColor;
 }
-
+.playlistForm {
+  color:#555555;
+  input { width:300px; }
+}
 .shelf {
 
   .rack {
@@ -39,6 +42,10 @@ body {
             float: left;
             list-style: none;
             list-style-type: none;
+            h4 {
+              font-size: 1em;
+              width: 300px;
+            }
           }
         }
       }

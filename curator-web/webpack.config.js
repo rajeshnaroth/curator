@@ -31,6 +31,7 @@ module.exports = {
             }
         ]
     },
+    devtool: 'inline-source-map',
     externals: { 'React': 'react'},
     resolve: {
         extensions: ['', '.js', '.jsx']

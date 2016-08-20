@@ -1,4 +1,17 @@
-module.exports = [
+import {GET_FRESH_LIST_SUCCESS } from '../actions'
+
+const shelf = (state = {}, action) => {
+  switch (action.type) {
+
+    case GET_FRESH_LIST_SUCCESS:
+      console.log("shelf.js: ", action);
+              
+      return action.result;
+
+    default:
+      console.log("shelf.js: default ", action);
+      return []
+      /*
     {
         genre:'Drama',
         films:[
@@ -17,4 +30,7 @@ module.exports = [
             {id: 'TFHafo91dJg', title:'Mom for Sale', rating:3, views:200, description:'Jacob buys a mom from craigslist'}
         ]
     }
-]
+	];*/
+  }
+};
+export default shelf

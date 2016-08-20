@@ -1,6 +1,6 @@
-import combineReducers from 'redux'
-import rack from './rack'
+import {combineReducers} from 'redux'
+import shelf from './shelf'
 
 export default combineReducers({
-    rack
+    shelf
 });
