@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import PlaylistForm from './playlistForm'
-import { getPlaylist } from '../actions'
+import { getPlaylist } from '../../actions'
 
 const mapStateToProps = function(state, ownProps) {
 	return {shelf: state.shelf}
@@ -12,6 +12,8 @@ const mapDispatchToProps = function(dispatch, ownProps) {
 
 	return {
 		getPlayList: function(playlistId) {
+			console.log("playlistFormContainer.js: ", playlistId);
+			        
 			dispatch(getPlaylist(playlistId))
 		}
 	}

@@ -1,8 +1,9 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import PlaylistFormContainer from './playlistFormContainer'
+import PlaylistFormContainer from './curate/playlistFormContainer'
 import ShelfContainer from './shelf/shelfContainer'
+import ShowModule from './shelf/showModule'
 import {getFreshList} from '../actions'
 
 require('../../scss/app.scss') // Tells webpack to include this.
@@ -17,8 +18,7 @@ const App = React.createClass({
         return (
             <Provider store={this.props.store}>
                 <div>
-                    <PlaylistFormContainer />
-                    <ShelfContainer />
+                    <ShowModule />
                 </div>
             </Provider>
         )

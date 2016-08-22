@@ -38,9 +38,8 @@ function toPromise(inputFun) {
         })
     }
 }
-function parseChannelIdData(result) {
-    console.log("parseChannelIdData.js: ", result);
-            
+
+function parseChannelIdData(result) {            
     return new Promise((resolve, reject) => {
         let channelRecord = result.items
             .filter(v => v.kind === 'youtube#channel')
@@ -56,33 +55,47 @@ function parseChannelIdData(result) {
 
 function parsePlayListsData(result) {
     return new Promise((resolve, reject) => {
-        let playlist = result.items
+        let playlists = result.items
             .filter(v => v.kind === 'youtube#playlist')
             .map(item => ({
                         playlistId: item.id, 
                         title:item.snippet.title, 
                         description:item.snippet.description
             }))
-            .shift()
-        resolve(Object.assign({}, playlist, playListVideosUrl(playlist.playlistId)))
+            //.shift()
+        console.log("parsePlayListsData: ", playlists);
+        let newPlist = playlists.map(
+                pl => Object.assign({}, pl, playListVideosUrl(pl.playlistId))
+            )
+        console.log("parsePlayListsData: ", newPlist);
+                
+        resolve(newPlist)
     });
 }
 
+function getJsonForAllPlaylists(playlists) {
+    console.log('getJsonForAllPlaylists', playlists)
+    return Promise.all(playlists.map(pl => getJson(pl)))
+}
 export function parseVideoData(playlistData) {
-    var res = [
+    console.log('parseVideoData', playlistData)
+
+    var res = playlistData.map(pl => (
         {
-            genre:playlistData.title,
-            films:playlistData.items.map(item => (
-                {
-                    id: item.snippet.resourceId.videoId, 
-                    title:item.snippet.title, 
-                    rating:4, 
-                    views:2000, 
-                    description:item.snippet.description
-                }
+            genre:pl.title,
+            films:pl.items
+                .filter(item => item.snippet.title !== 'Private video')
+                .map(item => (
+                    {
+                        id: item.snippet.resourceId.videoId, 
+                        title:item.snippet.title, 
+                        rating:4, 
+                        views:2000, 
+                        description:item.snippet.description
+                    }
                 ))
-        }
-    ];
+        })
+    )
     return res
 }
 
@@ -91,7 +104,7 @@ export const fetchPlayListsFromChannelId = compose(getJson, playListsUrl)
 export const fetchVideosFromPlaylist = compose(getJson, playListVideosUrl)
 
 export const fetchVideosFromUser = composeP(
-    getJson, 
+    getJsonForAllPlaylists, 
     parsePlayListsData, 
     getJson, 
     parseChannelIdData,
@@ -101,5 +114,5 @@ export const fetchVideosFromUser = composeP(
 export const getVideos = composeP(parseChannelIdData, fetchChannelIdFromUserId)
 
 
-//getVideosFromUserId('rnaroth').then(result => console.log('fetchChannelIdFromUserId', result))
+//fetchVideosFromUser('rnaroth').then(result => console.log('fetchVideosFromUser', result))
 

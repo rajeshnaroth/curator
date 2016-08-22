@@ -19,5 +19,7 @@ export const getJson = (input) => {
 	        	reject(serverReq.statusText);
 	        }
 	    }
-    });
+    })
 }
+
+export const getAllJson = (inputList) => Promise.all(inputList.map(p => getJson(p)))

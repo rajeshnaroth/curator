@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Footer = (props) => {
-	return  <ul id="footer">
+	return  <ul class="panel-footer" id="footer">
         <li>Home</li>
         <li>About</li>
         <li>Help</li>

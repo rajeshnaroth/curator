@@ -12,10 +12,11 @@ const PlaylistForm = React.createClass({
 	render() {
 		return (
 			<div className="playlistForm">
-				<form className="playlistForm">
-					<input onChange={this.valueChange} value={this.state.playlistId}/>
+				<div className="playlistForm">
+					<label for="channelName">Channel User Name: </label>
+					<input name="channelName" onChange={this.valueChange} value={this.state.playlistId}/>
 					<button onClick={() => this.props.getPlayList(this.state.playlistId)}>Add</button>
-				</form>
+				</div>
 			</div>
 		)
 	}

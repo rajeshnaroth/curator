@@ -38,14 +38,14 @@ const Rack = React.createClass({
         }
     },
     render() {
-        let cover = this.props.rack.films.map(film => <FilmCover key={film.id} {...film} />);
+        let cover = this.props.rack.films.map(film => <FilmCover openPlayer={this.props.openPlayer} key={film.id} {...film} />);
         this.totalFilms = this.props.rack.films.length
         return (
             <div className="rack">
                 <h2 className="rackLabel">{this.props.rack.genre}</h2>
                 <div className="rackSpace">
                     <div className="rackControl">
-                        <a className="rackButton" href="#" role="button">
+                        <a className="rackButton" role="button">
                             <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" onClick={() => this.moveLeft()}></span>
                             <span className="sr-only">Previous</span>
                         </a>
@@ -56,7 +56,7 @@ const Rack = React.createClass({
                         </ul>
                     </div>
                     <div className="rackControl">
-                        <a className="rackButton" href="#" role="button">
+                        <a className="rackButton" role="button">
                             <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" onClick={() => this.moveRight()}></span>
                             <span className="sr-only">Next</span>
                         </a>

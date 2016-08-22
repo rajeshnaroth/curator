@@ -1,5 +1,9 @@
 import React from 'react'
 import Logo from './logo'
 
-const Header = () => <div><Logo/><h3>Curator Web App</h3></div>
+const Header = () => (
+	<nav className="navbar navbar-default navbar-fixed-top">
+		<h1>YouTube 2 Netflix</h1>		
+	</nav>
+)
 export default Header
