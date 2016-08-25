@@ -17,6 +17,7 @@ h1 { font-family: ‘Georgia’, 'Charcoal', sans-serif;
 h2 {
   font-family: cursive;
 }
+
 .playlistForm {
   color:#555555;
   input { width:300px; }
@@ -27,7 +28,7 @@ h2 {
 }
 
 
-ul#footer {
+ul#footer, ul.mainNav {
   margin:0 auto;
   li { 
     list-style-type:none;

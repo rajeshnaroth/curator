@@ -5,11 +5,12 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 
-import ShelfPage  from './pages/shelfPage'
-import PlayerPage from './pages/playerPage'
-import TestPage from './pages/testPage'
-import Header     from './frame/header'
-import Footer     from './frame/footer'
+import ShelfPage   from './pages/shelfPage'
+import PlayerPage  from './pages/playerPage'
+import CuratorPage from './pages/curatorPage'
+import TestPage    from './pages/testPage'
+import Header      from './frame/header'
+import Footer      from './frame/footer'
 
 
 const Root = ({store}) => (
@@ -21,6 +22,7 @@ const Root = ({store}) => (
 					<Router history={browserHistory}>
 						<Route path="/" store={ store } component={ ShelfPage } />
 						<Route path="/player/:videoId" store={ store } component={ PlayerPage }/>
+						<Route path="/curator" store={ store } component={ CuratorPage }/>
 						<Route path="/test/:vid" store={ store } component={ TestPage }/>
 					</Router>
 				</Provider>

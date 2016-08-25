@@ -1,10 +1,11 @@
-import {GET_FRESH_LIST_SUCCESS } from '../actions'
+import { LOADED_FROM_DB } from '../actions'
+
 const initialState = []
 const shelf = (state = initialState, action) => {
   console.log("shelf.js: default ", action, state);
   switch (action.type) {
 
-    case GET_FRESH_LIST_SUCCESS:              
+    case LOADED_FROM_DB:              
       return action.result;
 
     default:
