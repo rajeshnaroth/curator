@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router'
+
 const ASPECT = 16/9
 const Player = React.createClass({
 	render: function() {
@@ -15,7 +17,7 @@ const Player = React.createClass({
 		let width = 720
 		let height = 480
 		let availableWidth = window.innerWidth
-		let availableHeight = window.innerHeight - 30 // COnsider the other elements on top
+		let availableHeight = window.innerHeight - 30 // COnsider the other elements stacked on top
 		if (availableWidth / window.innerHeight >  ASPECT) {//too wide
 			height = availableHeight
 			width = availableHeight * ASPECT
@@ -29,7 +31,9 @@ const Player = React.createClass({
 		return (
 
 				<div className="playerOverlay" style={iStyle}>
-				    <p className="playerControls" onClick={this.props.closePlayer}>X Close Player</p>
+					<Link to={'/'}>
+				    	<p className="playerControls" onClick={this.props.closePlayer}>X Close Player</p>
+				    </Link>
 					<div className="playerContent">
 						
 						<div className="iframeContent" style={iframeStyle}>

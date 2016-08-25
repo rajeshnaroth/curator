@@ -7,7 +7,7 @@ const Shelf = (props) => {
             	        
                 props.shelf.map(item => {
                     return (
-                        <Rack key={item.genre} rack={item} openPlayer={props.openPlayer} />
+                        <Rack key={item.genre} rack={item} />
                     )
                 })
             }

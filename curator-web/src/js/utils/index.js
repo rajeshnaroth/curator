@@ -10,7 +10,7 @@ export const getJson = (input) => {
 		let serverReq = new XMLHttpRequest();
 	
 		serverReq.open('GET', input.url);
-	    serverReq.setRequestHeader('Content-Type', 'application/json');
+	    //serverReq.setRequestHeader('Content-Type', 'application/json');
 	    serverReq.send()
 	    serverReq.onload = () => {
 	        if (serverReq.readyState === 4 && serverReq.status >= 200 && serverReq.status < 300) {
@@ -23,3 +23,12 @@ export const getJson = (input) => {
 }
 
 export const getAllJson = (inputList) => Promise.all(inputList.map(p => getJson(p)))
+
+export const toPromise = (inputFun) => {
+        //return Promise.resolve(inputFun.apply(null, arguments))
+    return function(singleArg) {
+        return new Promise((resolve, reject) => {
+            resolve(inputFun(singleArg))
+        })
+    }
+}

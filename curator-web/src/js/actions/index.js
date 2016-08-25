@@ -26,6 +26,12 @@ export const getPlaylist = (playlistId) => {
 	}
 }
 
+export const triggerOpenPlayer = (videoId) => {
+	return (dispatch) => {
+		return openPlayer(videoId, dispatch)
+	}
+}
+
 // Player
 
 export const openPlayer = (videoId, dispatch) => {

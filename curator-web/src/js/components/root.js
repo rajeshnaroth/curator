@@ -1,23 +1,32 @@
-import React from 'react'
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css'
+require('../../scss/app.scss') // Tells webpack to include this.
 
-import {Router, Route, browserHistory} from 'react-router'
-import ShowModule from './shelf/showModule'
-import App from './app'
-import Header from './frame/header'
-import Footer from './frame/footer'
+import React from 'react'
+import { Provider } from 'react-redux'
+import { Router, Route, browserHistory } from 'react-router'
+
+import ShelfPage  from './pages/shelfPage'
+import PlayerPage from './pages/playerPage'
+import TestPage from './pages/testPage'
+import Header     from './frame/header'
+import Footer     from './frame/footer'
+
 
 const Root = ({store}) => (
 	<div>
-		<Header />
+		<Header store={store} />
 		<div className="center-container">
 			<div className="content mainContent">
-				<Router history={browserHistory}>
-					<Route path="/" component={() => <App store={store} />}>
-					</Route>
-				</Router>
+				<Provider store={store}>
+					<Router history={browserHistory}>
+						<Route path="/" store={ store } component={ ShelfPage } />
+						<Route path="/player/:videoId" store={ store } component={ PlayerPage }/>
+						<Route path="/test/:vid" store={ store } component={ TestPage }/>
+					</Router>
+				</Provider>
 			</div>
 		</div>
-	    <Footer />
+	    <Footer store={store} />
 	</div>
 )
 

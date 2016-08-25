@@ -13,12 +13,15 @@ var routes = require('./routes/index');
 var port = 5000;
 
 // app.use(express.static(__dirname + 'dist'));
-app.use('/dist',   express.static(__dirname + '/../dist'));
-app.use('/vendor', express.static(__dirname + '/../node_modules'));
-app.use('/images', express.static(__dirname + '/../src/assets/images'));
+// app.use('/dist',   express.static(__dirname + '/../dist'));
+// app.use('/vendor', express.static(__dirname + '/../node_modules'));
+// app.use('/images', express.static(__dirname + '/../src/assets/images'));
 
 //app.use('/css', express.static(__dirname + '/src/css'));
-app.use('/', routes);
+// app.use('/*', routes);
+app.get('/', function(req, res, next) {
+    res.sendFile(path.join(__dirname+'/../src/index.html'))
+});
 
 //Webpack config
 var compiler = webpack(config);
