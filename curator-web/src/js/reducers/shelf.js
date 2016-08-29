@@ -1,11 +1,10 @@
-import { LOADED_FROM_DB } from '../actions'
+import { INITIALIZED_SHOW_LIST } from '../actions'
 
-const initialState = []
+const initialState = { "default":[] }
 const shelf = (state = initialState, action) => {
-  console.log("shelf.js: default ", action, state);
   switch (action.type) {
 
-    case LOADED_FROM_DB:              
+    case INITIALIZED_SHOW_LIST:    
       return action.result;
 
     default:

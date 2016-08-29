@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import PlaylistForm from './playlistForm'
-import { getPlaylist } from '../../actions'
+import { fetchVideosFromYouTube } from '../../actions'
 
 const mapStateToProps = function(state, ownProps) {
 	return {shelf: state.shelf}
@@ -14,7 +14,7 @@ const mapDispatchToProps = function(dispatch, ownProps) {
 		getPlayList: function(playlistId) {
 			console.log("playlistFormContainer.js: ", playlistId);
 			        
-			dispatch(getPlaylist(playlistId))
+			dispatch(fetchVideosFromYouTube(playlistId))
 		}
 	}
 }

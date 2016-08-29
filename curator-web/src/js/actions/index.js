@@ -1,58 +1,62 @@
-import { fetchVideosFromUser, parseVideoData } from '../api/youtube'
+import { fetchPlaylistFromUser, parseVideoData } from '../api/youtube'
 import { saveFlixToDB, getFlixFromDB } from '../api/persistence'
 
-export const GET_FRESH_LIST  = 'GET_FRESH_LIST';
-export const GET_FRESH_LIST_SUCCESS  = 'GET_FRESH_LIST_SUCCESS';
+export const INITIALIZED_SHOW_LIST  = 'INITIALIZED_SHOW_LIST'
 
-export const LOAD_FROM_DB  = 'LOAD_FROM_DB';
-export const LOADED_FROM_DB  = 'LOADED_FROM_DB';
+export const INITIALIZED_CURATION_LIST = 'INITIALIZED_CURATION_LIST'
+export const SAVED_CURATION_LIST  = 'SAVED_CURATION_LIST'
 
+export const INITIALIZED_CHANNEL_PLAY_LIST = 'INITIALIZED_CHANNEL_PLAY_LIST'
 
-export const SAVE_PLIST = 'SAVE_PLIST';
-export const UPDATE_PLIST = 'UPDATE_PLIST';
 export const OPEN_PLAYER = 'OPEN_PLAYER'
 export const CLOSE_PLAYER = 'CLOSE_PLAYER'
+
 export const START_PLAY = 'START_PLAY'
-export const SAVE_FLIX = 'SAVE_FLIX'
-export const GET_FLIX = 'GET_FLIX'
 
+// Curator
 
-
-const fetchVideosFromDB = (userId, dispatch) => (
-		getFlixFromDB().then(playlistData => {
-				dispatch({type: LOADED_FROM_DB, result: playlistData})
-		})
-	)
-
-export const getListFromDB = () => {	        
+export const getListFromDBForCuration = () => {	        
 	return (dispatch) => {
-		return fetchVideosFromDB('rnaroth', dispatch)
+		return getFlixFromDB().then(playlistData => {
+				dispatch({type: INITIALIZED_CURATION_LIST, result: playlistData})
+		}).catch((err) => console.log(err))
 	}
 }
 
-const fetchVideosFromYouTube = (userId, dispatch) => (
-		fetchVideosFromUser(userId).then(playlistData => {
-				dispatch({type: GET_FRESH_LIST_SUCCESS, result: parseVideoData(playlistData)})
-		})
-	)
-
-export const getFreshList = () => {	        
+export const saveCuratedListToDB = (flixlist) => {	        
 	return (dispatch) => {
-		return fetchVideosFromYouTube('rnaroth', dispatch)
+		return saveFlixToDB(flixlist).then(playlistData => {
+				dispatch({type: SAVED_CURATION_LIST, result: playlistData})
+		}).catch((err) => console.log(err))
 	}
 }
 
-export const getPlaylist = (playlistId) => {
+// Show / Shelf
+export const fetchShowListFromDB = () => {
 	return (dispatch) => {
-		return fetchVideosFromYouTube(playlistId, dispatch)
+		return getFlixFromDB().then(playlistData => {
+				dispatch({type: INITIALIZED_SHOW_LIST, result: playlistData})
+		}).catch((err) => console.log(err))
 	}
 }
 
+export const fetchVideosFromYouTube = (userId) => {	        
+	return (dispatch) => {
+		return fetchPlaylistFromUser(userId).then(playlistData => {
+				dispatch({type: INITIALIZED_CHANNEL_PLAY_LIST, result: parseVideoData(playlistData)})
+		}).catch((err) => console.log(err))
+	}
+}
+
+
+// Player
 export const triggerOpenPlayer = (videoId) => {
 	return (dispatch) => {
 		return openPlayer(videoId, dispatch)
 	}
 }
+
+
 
 // Player
 
@@ -68,13 +72,3 @@ export const startPlay = (videoId, dispatch) => {
 	return dispatch({type: START_PLAY, player: { videoId:videoId }})
 }
 
-//Persistence
-
-export const saveFlix = (flixlist) => (dispatch) => (
-	saveFlixToDB(flixlist).then(response => dispatch({ type: SAVE_FLIX, flixlist:response }))
-)
-
-
-export const getFlix = () => (dispatch) =>  (
-	getFlixFromDB().then(response => dispatch({ type: GET_FLIX, flixlist:response }))
-)

@@ -36,6 +36,7 @@ const playListVideosUrl = (playlistId) => ({url: [
 // Parse functions. Takes in results and spits out a Promise
 function parseChannelIdData(result) {            
     return new Promise((resolve, reject) => {
+
         let channelRecord = result.items
             .filter(v => v.kind === 'youtube#channel')
             .map(item => ({
@@ -44,6 +45,10 @@ function parseChannelIdData(result) {
                         description: item.snippet.description
             }))
             .shift()
+
+        if (!channelRecord || !channelRecord.channelId) {
+            reject('No such channel')
+        }
         resolve(Object.assign({}, channelRecord, playListsByChannelIdUrl(channelRecord.channelId)))
     });
 }
@@ -98,12 +103,11 @@ export const fetchChannelIdFromUserId    = compose(getJson, playlistsByUserIdUrl
 export const fetchPlayListsFromChannelId = compose(getJson, playListsByChannelIdUrl)
 export const fetchVideosFromPlaylist     = compose(getJson, playListVideosUrl)
 
-export const fetchVideosFromUser = composeP(
+export const fetchPlaylistFromUser = composeP(
     getJsonForAllPlaylists, 
     parsePlayListsData, 
     getJson, 
     parseChannelIdData,
     getJson, 
     toPromise(playlistsByUserIdUrl))
-
 export const getVideos = composeP(parseChannelIdData, fetchChannelIdFromUserId)

@@ -4,10 +4,11 @@ import { Link } from 'react-router'
 
 const Header = () => (
     <nav className="navbar navbar-default navbar-fixed-top">
-        <h1>Tube2Flix</h1>
+        <Link to='/'><h1>Tube2Flix</h1></Link>
         <ul className="mainNav">
-        	<li> <span>Curate</span> </li>
-        	<li> <span>Test</span> </li>
+        	<li><Link to='/show'><span>Show</span></Link></li>
+        	<li><Link to='/curate'><span>Curate</span></Link></li>
+        	<li><Link to='/test'><span>Test</span></Link></li>
 		</ul> 
     </nav>
 )

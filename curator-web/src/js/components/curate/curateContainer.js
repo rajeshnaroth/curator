@@ -2,17 +2,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Curate from './curate'
-import { saveFlix, getFlix } from '../../actions'
+import { saveTubeFlix } from '../../actions'
 
 const mapStateToProps = function(state, ownProps) {
-	return {curator: state.curator}
+	return {
+		curationList: state.curationList,
+		channelPlayList: state.channelPlayList
+	}
 }
 
 const mapDispatchToProps = function(dispatch, ownProps) {
 	return {
-		saveFlix: function(channelData) {
-			console.log('curatecontainer saveFlix', channelData)
-			dispatch(saveFlix(channelData))
+		saveCuratedTubeFlix: function(channelData) {
+			console.log('curatecontainer saveCuratedTubeFlix', channelData)
+			dispatch(saveTubeFlix(channelData))
 		}
 	}
 }

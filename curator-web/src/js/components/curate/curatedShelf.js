@@ -1,7 +1,7 @@
 import React from 'react'
-import Rack from './rack'
+import CuratedRack from './curatedRack'
 
-const Shelf = React.createClass({
+const CuratedShelf = React.createClass({
     render() {
         console.log("shelf.js...: ", this.props.shelf);
                 
@@ -9,9 +9,9 @@ const Shelf = React.createClass({
             <div>
                 <div className="shelf">
                     {
-                        this.props.shelf.default.map(item => {
+                        this.props.curationList.default.map(item => {
                             return (
-                                <Rack key={item.genre} rack={item} />
+                                <CuratedRack key={item.genre} rack={item} />
                             )
                         })
                     }
@@ -19,4 +19,4 @@ const Shelf = React.createClass({
             </div>)
     }
 })
-export default Shelf
+export default CuratedShelf
