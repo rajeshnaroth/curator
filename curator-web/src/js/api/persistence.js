@@ -2,7 +2,7 @@ export const saveFlixToDB = (flixlist) => {
     return new Promise((resolve, reject) => {
             console.log("persistence.js: saving ", flixlist);
                     
-            localStorage.setItem('flixlist', JSON.stringify({'default':flixlist}))
+            localStorage.setItem('flixlist', JSON.stringify(flixlist))
             resolve(flixlist);
         })
 }

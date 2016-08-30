@@ -3,7 +3,7 @@ import React from 'react'
 const PlaylistForm = React.createClass({
 	getInitialState() {
 		return {
-			playlistId:''
+			playlistId:'UC7gBcKzHKc0oOR5-XiWdlFQ'
 		}
 	},
 	valueChange(event) {

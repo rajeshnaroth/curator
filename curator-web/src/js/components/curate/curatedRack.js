@@ -1,14 +1,35 @@
 import React from 'react'
-
+let highLightStyle = {borderWidth:1, borderColor:'green', borderStyle:'solid'}
+let normalStyle = {borderWidth:1, borderColor:'black', borderStyle:'solid'}
+import { newId } from '../../utils'
+let keyId = newId('filmr-');
 const CuratedRack = React.createClass({
-
+    getInitialState() {
+        return {
+            currentStyle: normalStyle
+        }
+    },
+    dragOver(ev){
+        ev.preventDefault()
+        this.setState({currentStyle:highLightStyle})
+    },
+    dropFilm: (playlist, comp) => (ev) => {
+        ev.preventDefault();
+        let droppedFilm = JSON.parse(ev.dataTransfer.getData("film"))
+        console.log(comp)
+        comp.setState({currentStyle:normalStyle})
+        comp.props.addFilmToPlaylist(playlist, droppedFilm)
+    },
+    deletePlaylist: (playlist, comp) => () => {
+        comp.props.deletePlaylist(playlist)
+    },
     render() {
-        let filmlist = this.props.rack.films.map(film => <li key={'ck_' + film.id}>{film.title}</li>);
+        let filmlist = this.props.rack.films.map(film => <li key={'filmr-'+film.id}>{film.title}</li>);
         return (
-            <div className="curatorPlaylist">
+            <div className="curatorPlaylist" style={this.state.currentStyle} onDragOver={this.dragOver} onDrop={this.dropFilm(this.props.rack, this)}>
                 {
                     <div>
-                        <h3>{this.props.rack.genre}</h3>
+                        <h3><span onClick={this.deletePlaylist(this.props.rack, this)}> X </span><span>{this.props.rack.genre}</span></h3>
                         <ul>{filmlist}</ul>
                     </div>
                 }

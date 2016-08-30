@@ -1,17 +1,23 @@
 import React from 'react'
 import CuratedRack from './curatedRack'
 
+import { newId } from '../../utils'
+let keyId = newId('curack-');
+
 const CuratedShelf = React.createClass({
     render() {
-        console.log("shelf.js...: ", this.props.shelf);
-                
+        let addFilmToPlaylist = this.props.addFilmToPlaylist;        
         return (
             <div>
                 <div className="shelf">
                     {
                         this.props.curationList.default.map(item => {
                             return (
-                                <CuratedRack key={item.genre} rack={item} />
+                                <CuratedRack key={keyId()} 
+                                    rack={item} 
+                                    addFilmToPlaylist={this.props.addFilmToPlaylist}
+                                    deletePlaylist={this.props.deletePlaylist}
+                                />
                             )
                         })
                     }

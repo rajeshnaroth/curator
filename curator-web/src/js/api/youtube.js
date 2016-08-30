@@ -11,27 +11,36 @@ const baseApiUrl = (resourceName) => BASE_API_ENDPOINT + resourceName + '?key=' 
 
 // Url construction
 // Pair results with parseChannelIdData()
-const playlistsByUserIdUrl = (userId) => ({url: [
-    baseApiUrl('channels'), 
-    'forUsername=' + userId, 
-    'part=snippet'
-].join('&')})
+const playlistsByUserIdUrl = (userId) => ({
+    input:userId,
+    url: [
+        baseApiUrl('channels'), 
+        'forUsername=' + userId, 
+        'part=snippet'
+    ].join('&')}
+)
 
 // Pair results with parsePlayListsData()
-const playListsByChannelIdUrl = (channelId) => ({url: [
-    baseApiUrl('playlists'), 
-    'channelId=' + channelId, 
-    'part=snippet',
-    'maxResults=50'
-].join('&')})
+const playListsByChannelIdUrl = (channelId) => ({
+    input:channelId,
+    url: [
+        baseApiUrl('playlists'), 
+        'channelId=' + channelId, 
+        'part=snippet',
+        'maxResults=50'
+    ].join('&')}
+)
 
 //Pair results with parseVideoData
-const playListVideosUrl = (playlistId) => ({url: [
-    baseApiUrl('playlistItems'), 
-    'playlistId=' + playlistId, 
-    'part=contentDetails,snippet', 
-    'maxResults=50'
-].join('&')})
+const playListVideosUrl = (playlistId) => ({
+    input:playlistId,
+    url: [
+        baseApiUrl('playlistItems'), 
+        'playlistId=' + playlistId, 
+        'part=contentDetails,snippet', 
+        'maxResults=50'
+    ].join('&')}
+)
 
 // Parse functions. Takes in results and spits out a Promise
 function parseChannelIdData(result) {            
@@ -47,9 +56,11 @@ function parseChannelIdData(result) {
             .shift()
 
         if (!channelRecord || !channelRecord.channelId) {
-            reject('No such channel')
+            // no channel id. So try with the user id
+            resolve(Object.assign({}, channelRecord, playListsByChannelIdUrl(result.input)))
+        } else {
+            resolve(Object.assign({}, channelRecord, playListsByChannelIdUrl(channelRecord.channelId)))
         }
-        resolve(Object.assign({}, channelRecord, playListsByChannelIdUrl(channelRecord.channelId)))
     });
 }
 
@@ -79,6 +90,7 @@ export function parseVideoData(playlistData) {
     var res = playlistData.map(pl => (
         {
             genre: pl.title,
+            playlistId: pl.playlistId,
             films: pl.items
                 .filter(item => item.snippet.title !== 'Private video')
                 .map(item => (
@@ -110,4 +122,5 @@ export const fetchPlaylistFromUser = composeP(
     parseChannelIdData,
     getJson, 
     toPromise(playlistsByUserIdUrl))
-export const getVideos = composeP(parseChannelIdData, fetchChannelIdFromUserId)
+
+//export const getVideos = composeP(parseChannelIdData, fetchChannelIdFromUserId)

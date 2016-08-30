@@ -1,6 +1,7 @@
 import React from 'react'
 import Rack from './rack'
-
+import { newId } from '../../utils'
+let keyId = newId('rack-');
 const Shelf = React.createClass({
     render() {
         console.log("shelf.js...: ", this.props.shelf);
@@ -11,7 +12,7 @@ const Shelf = React.createClass({
                     {
                         this.props.shelf.default.map(item => {
                             return (
-                                <Rack key={item.genre} rack={item} />
+                                <Rack key={keyId()} rack={item} />
                             )
                         })
                     }

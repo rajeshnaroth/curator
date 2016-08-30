@@ -8,6 +8,10 @@ export const SAVED_CURATION_LIST  = 'SAVED_CURATION_LIST'
 
 export const INITIALIZED_CHANNEL_PLAY_LIST = 'INITIALIZED_CHANNEL_PLAY_LIST'
 
+export const ADD_PLAYLIST_TO_CURATION_LIST = 'ADD_PLAYLIST_TO_CURATION_LIST'
+export const DELETE_PLAYLIST_FROM_CURATION_LIST = 'DELETE_PLAYLIST_FROM_CURATION_LIST'
+export const ADD_FILM_TO_CURATION_LIST     = 'ADD_FILM_TO_CURATION_LIST'
+
 export const OPEN_PLAYER = 'OPEN_PLAYER'
 export const CLOSE_PLAYER = 'CLOSE_PLAYER'
 
@@ -31,6 +35,12 @@ export const saveCuratedListToDB = (flixlist) => {
 	}
 }
 
+export const deletePlaylist = (playlist, dispatch) => {
+	return (dispatch) => {
+		return dispatch({type: DELETE_PLAYLIST_FROM_CURATION_LIST, playlist: playlist})
+	}
+}
+
 // Show / Shelf
 export const fetchShowListFromDB = () => {
 	return (dispatch) => {
@@ -48,8 +58,25 @@ export const fetchVideosFromYouTube = (userId) => {
 	}
 }
 
+// Playlist
+
+export const addPlaylistToCurationList = (playlist, dispatch) => {
+	console.log("action.js: ---> ", 'addPlaylistToCurationList');
+	return (dispatch) => {
+		return dispatch({type: ADD_PLAYLIST_TO_CURATION_LIST, playlist: playlist})
+	}
+}
+
+export const addFilmToPlaylist = (playlist, film, dispatch) => {
+	return dispatch({type: ADD_FILM_TO_CURATION_LIST, playlist: playlist, film:film})
+}
 
 // Player
+
+export const openPlayer = (videoId, dispatch) => {
+	return dispatch({type: OPEN_PLAYER, player: { videoId:videoId }})
+}
+
 export const triggerOpenPlayer = (videoId) => {
 	return (dispatch) => {
 		return openPlayer(videoId, dispatch)
@@ -60,9 +87,6 @@ export const triggerOpenPlayer = (videoId) => {
 
 // Player
 
-export const openPlayer = (videoId, dispatch) => {
-	return dispatch({type: OPEN_PLAYER, player: { videoId:videoId }})
-}
 
 export const closePlayer = (dispatch) => {  
 	return dispatch({type: CLOSE_PLAYER, player: {}})

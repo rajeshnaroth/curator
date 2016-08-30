@@ -32,3 +32,8 @@ export const toPromise = (inputFun) => {
         })
     }
 }
+
+export const newId = (prefix) => {
+	let key = 1;
+	return () => prefix + (key++)
+}

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Curate from './curate'
-import { saveTubeFlix } from '../../actions'
+import { saveCuratedListToDB, addPlaylistToCurationList, addFilmToPlaylist, deletePlaylist } from '../../actions'
 
 const mapStateToProps = function(state, ownProps) {
 	return {
@@ -13,9 +13,20 @@ const mapStateToProps = function(state, ownProps) {
 
 const mapDispatchToProps = function(dispatch, ownProps) {
 	return {
-		saveCuratedTubeFlix: function(channelData) {
+		saveCuratedListToDB: function(channelData) {
 			console.log('curatecontainer saveCuratedTubeFlix', channelData)
-			dispatch(saveTubeFlix(channelData))
+			dispatch(saveCuratedListToDB(channelData))
+		},
+		copyPlaylistToCuration: function(playlist) {
+			console.log('curate container copyPlaylistToCuration ----->:')
+			dispatch(addPlaylistToCurationList(playlist, dispatch))
+		},
+		addFilmToPlaylist: function(playlist, film) {
+			console.log('curate container addFilmToPlaylist:', playlist, film)
+			dispatch(addFilmToPlaylist(playlist, film, dispatch))
+		},
+		deletePlaylist: function(playlist) {
+			dispatch(deletePlaylist(playlist, dispatch))
 		}
 	}
 }
