@@ -3,7 +3,9 @@ import {
     SAVE_FLIX, 
     ADD_PLAYLIST_TO_CURATION_LIST, 
     ADD_FILM_TO_CURATION_LIST, 
-    DELETE_PLAYLIST_FROM_CURATION_LIST } from '../actions'
+    DELETE_PLAYLIST_FROM_CURATION_LIST,
+    DELETE_FILM_FROM_CURATION_LIST 
+} from '../actions'
 
 const initialState = { default: [] }
 
@@ -22,6 +24,16 @@ const curationList = (state = initialState, action) => {
             console.log("curationList.js DELETE_PLAYLIST_FROM_CURATION_LIST: ", action);
                     
             return { default: newList.filter(pl => pl.playlistId !== action.playlist.playlistId) };
+        }    
+        case DELETE_FILM_FROM_CURATION_LIST: {
+            let newList = Array.from(state.default);
+            newList.map(pl => {
+                if (pl.playlistId === action.playlist.playlistId) {
+                    pl.films = pl.films.filter(f => f.id !== action.film.id)
+                }
+                return pl
+            })
+            return { default: newList };
         }    
         case ADD_FILM_TO_CURATION_LIST: {
             let newList = Array.from(state.default);

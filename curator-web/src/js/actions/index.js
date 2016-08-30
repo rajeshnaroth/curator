@@ -10,6 +10,7 @@ export const INITIALIZED_CHANNEL_PLAY_LIST = 'INITIALIZED_CHANNEL_PLAY_LIST'
 
 export const ADD_PLAYLIST_TO_CURATION_LIST = 'ADD_PLAYLIST_TO_CURATION_LIST'
 export const DELETE_PLAYLIST_FROM_CURATION_LIST = 'DELETE_PLAYLIST_FROM_CURATION_LIST'
+export const DELETE_FILM_FROM_CURATION_LIST = 'DELETE_FILM_FROM_CURATION_LIST'
 export const ADD_FILM_TO_CURATION_LIST     = 'ADD_FILM_TO_CURATION_LIST'
 
 export const OPEN_PLAYER = 'OPEN_PLAYER'
@@ -38,6 +39,12 @@ export const saveCuratedListToDB = (flixlist) => {
 export const deletePlaylist = (playlist, dispatch) => {
 	return (dispatch) => {
 		return dispatch({type: DELETE_PLAYLIST_FROM_CURATION_LIST, playlist: playlist})
+	}
+}
+
+export const deleteFilmFromCurateList = (playlist, film, dispatch) => {
+	return (dispatch) => {
+		return dispatch({type: DELETE_FILM_FROM_CURATION_LIST, playlist: playlist, film:film})
 	}
 }
 

@@ -17,6 +17,7 @@ const CuratedShelf = React.createClass({
                                     rack={item} 
                                     addFilmToPlaylist={this.props.addFilmToPlaylist}
                                     deletePlaylist={this.props.deletePlaylist}
+                                    deleteFilmFromCurateList={this.props.deleteFilmFromCurateList}
                                 />
                             )
                         })

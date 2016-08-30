@@ -23,8 +23,17 @@ const CuratedRack = React.createClass({
     deletePlaylist: (playlist, comp) => () => {
         comp.props.deletePlaylist(playlist)
     },
+    deleteFilm: (playlist, film, comp) => () => {
+        console.log("curatedRack.js: deleteFilm", playlist, film.id);
+                
+        comp.props.deleteFilmFromCurateList(playlist, film)
+    },
     render() {
-        let filmlist = this.props.rack.films.map(film => <li key={'filmr-'+film.id}>{film.title}</li>);
+        let filmlist = this.props.rack.films.map(film => (
+            <li key={'filmr-'+film.id}>
+            <span>{film.title}</span> 
+            <span onClick={this.deleteFilm(this.props.rack, film, this)}> Delete </span></li>
+            ))
         return (
             <div className="curatorPlaylist" style={this.state.currentStyle} onDragOver={this.dragOver} onDrop={this.dropFilm(this.props.rack, this)}>
                 {

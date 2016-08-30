@@ -26,6 +26,7 @@ const Curate = React.createClass({
                                 curationList={this.props.curationList} 
                                 addFilmToPlaylist={this.props.addFilmToPlaylist} 
                                 deletePlaylist={this.props.deletePlaylist} 
+                                deleteFilmFromCurateList={this.props.deleteFilmFromCurateList} 
                             />
                     	</div>
                     	<div className="col-lg-6 col-md-6">
