@@ -91,7 +91,7 @@ export const addPlaylistToCurationList = (playlist) => (dispatch) => dispatch({t
 export const addFilmToPlaylist = (playlist, film) =>  (dispatch) =>  dispatch({type: ADD_FILM_TO_CURATION_LIST, playlist: playlist, film:film})
 
 // Player
-export const triggerOpenPlayer = (videoId) => (dispatch) => dispatch({type: OPEN_PLAYER, player: { videoId:videoId }})
+export const triggerOpenPlayer = (videoId) => (dispatch) =>  dispatch({type: OPEN_PLAYER, player: { videoId:videoId }})
 
 // FilmBubble
 

@@ -1,9 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 
 const ASPECT = 16/9
 const Player = React.createClass({
 	render: function() {
+		console.log("player.js: ", browserHistory);
+		        
 		if (this.props.player.videoId) {
 			let videoUrl = 'https://www.youtube.com/embed/' + this.props.player.videoId
 			//<iframe width="560" height="315" src="https://www.youtube.com/embed/7oJUOsgoplQ" frameborder="0" allowfullscreen></iframe>
@@ -32,7 +34,7 @@ const Player = React.createClass({
 
 				<div className="playerOverlay" style={iStyle}>
 					<Link to={'/'}>
-				    	<p className="playerControls" onClick={this.props.closePlayer}>X Close Player</p>
+				    	<p className="playerControls" onClick={browserHistory.goBack}>X Close Player</p>
 				    </Link>
 					<div className="playerContent">
 						

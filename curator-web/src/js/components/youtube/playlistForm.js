@@ -7,13 +7,10 @@ const PlaylistForm = React.createClass({
 		}
 	},
 	valueChange(ev) {
-		console.log("playlistForm.js: ", ev.target.value);
-		        
 		this.setState({playlistId: ev.target.value});
 	},
 	keyPress(ev) {
 		if(ev.key === 'Enter') {
-			console.log(ev.target.value)
 			this.props.getPlayList(ev.target.value)
 		}
 	},

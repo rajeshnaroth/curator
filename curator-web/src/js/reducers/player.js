@@ -1,4 +1,4 @@
-import { SHOW_FILM_BUBBLE, HIDE_FILM_BUBBLE } from '../actions'
+import { OPEN_PLAYER, CLOSE_PLAYER } from '../actions'
 
 const initialState = { visibility:'hidden', videoId:null}
 
@@ -6,10 +6,10 @@ const shelf = (state = initialState, action) => {
     
     switch (action.type) {
 
-        case SHOW_FILM_BUBBLE: 
-        return { visibility:'visible', videoId:action.id};
+        case OPEN_PLAYER: 
+        return { visibility:'visible', videoId:action.player.videoId};
 
-        case HIDE_FILM_BUBBLE: 
+        case CLOSE_PLAYER: 
         return initialState;
 
         default:
