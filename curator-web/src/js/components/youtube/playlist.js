@@ -1,4 +1,6 @@
 import React from 'react'
+import _throttle from 'lodash/throttle'
+
 import { newId } from '../../utils'
 let keyId = newId('pl-');
 
@@ -16,12 +18,22 @@ const Playlist = React.createClass({
     endDrag(ev) {
 
     },
+    mouseOver: (film, comp) => (ev) => {
+        console.log("playlist.js: mouseOver")
+        comp.props.showFilmBubble(film)
+    },
+    mouseOut: (film, comp) => (ev) => {
+        console.log("playlist.js: mouseOut")
+        comp.props.hideFilmBubble(film)
+    },
     render() {
         let filmlist = this.props.playlist.films.map(film => (
             <li draggable="true"
                 onDragStart={this.startDrag(film)}
                 onDragEnd={this.endDrag}
-                key={keyId()}>{film.title}</li>
+                key={keyId()}>
+                <span onMouseOver={_throttle(this.mouseOver(film, this), 2000)} onMouseOut={this.mouseOut(film, this)}>{film.title}</span>
+            </li>
         ))
         return (
             <div className="curatorPlaylist">

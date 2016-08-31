@@ -42,3 +42,8 @@ cd to your projects folder:
     npm start
     open http://localhost:5000/
 
+
+
+Flow control:
+
+index.js -> root.js (all routes are defined here) -> pages/*

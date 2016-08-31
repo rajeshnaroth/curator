@@ -5,18 +5,22 @@ import { getFreshList } from '../../actions'
 import Header          from '../frame/header'
 import PlayerContainer from '../player/PlayerContainer'
 
+let filmInfo = {
+    id:'DnzCYUr17nk',
+    title:'Portal',
+    description:'Today, we talk Day 3, Visual Effects and pickup shots for Portal Combat!',
+    rating:4,
+    views:2000
+}
 const TestPage = React.createClass({
     componentWillMount() {
 
     },
 
-    render() {
-    	console.log("TestPage.js: ", this.props);
-    	        
+    render() {    	        
         return (
         	<div>
         		<Header />
-                <PlayerContainer />
             </div>
         )
     }

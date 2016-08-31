@@ -1,6 +1,6 @@
 import { INITIALIZED_SHOW_LIST } from '../actions'
 
-const initialState = { "default":[] }
+const initialState = []
 const shelf = (state = initialState, action) => {
   switch (action.type) {
 

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 
 import HomePage   from './pages/homePage'
-import ShelfPage   from './pages/shelfPage'
+import ShowPage   from './pages/showPage'
 import PlayerPage  from './pages/playerPage'
 import CuratorPage from './pages/curatorPage'
 import TestPage    from './pages/testPage'
@@ -16,19 +16,17 @@ import Footer      from './frame/footer'
 
 const Root = ({store}) => (
 	<div>
-		<div className="center-container">
 			<div className="content mainContent">
 				<Provider store={store}>
 					<Router history={browserHistory}>
 						<Route path="/" store={ store } component={ HomePage } />
-						<Route path="/show" store={ store } component={ ShelfPage } />
+						<Route path="/show(/:channel)" store={ store } component={ ShowPage } />
 						<Route path="/player/:videoId" store={ store } component={ PlayerPage }/>
-						<Route path="/curate" store={ store } component={ CuratorPage }/>
+						<Route path="/curate(/:channel)" store={ store } component={ CuratorPage }/>
 						<Route path="/test" store={ store } component={ TestPage }/>
 					</Router>
 				</Provider>
 			</div>
-		</div>
 	    <Footer store={store} />
 	</div>
 )

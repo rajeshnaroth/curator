@@ -1,22 +1,23 @@
 import React from 'react'
 import FilmCover from './film-cover'
 const COVERWIDTH = 320;
-const NFILMS_IN_VIEW = 3;
 
 const Rack = React.createClass({
     totalFilms:0,
     currentFirst:0,
+    windowWidth:1024,
+    noOfFilmsInView:3,
     tryRight(current) {
                 console.log("rack.js: r current", current);
 
-        if (this.totalFilms <= NFILMS_IN_VIEW) return current;
-        let pos = Math.abs(current - NFILMS_IN_VIEW)
-        return pos >= this.totalFilms - NFILMS_IN_VIEW ? -1 * (this.totalFilms - NFILMS_IN_VIEW) : current - NFILMS_IN_VIEW;
+        if (this.totalFilms <= this.noOfFilmsInView) return current;
+        let pos = Math.abs(current - this.noOfFilmsInView)
+        return pos >= this.totalFilms - this.noOfFilmsInView ? -1 * (this.totalFilms - this.noOfFilmsInView) : current - this.noOfFilmsInView;
     },
     tryLeft(current) {
-        console.log("rack.js: left current", current, (current <= 0 ? 0 : current + NFILMS_IN_VIEW));
+        console.log("rack.js: left current", current, (current <= 0 ? 0 : current + this.noOfFilmsInView));
         let pos = current     
-        return current >= 0 ? 0 : (current + NFILMS_IN_VIEW > 0 ? 0 : current + NFILMS_IN_VIEW);
+        return current >= 0 ? 0 : (current + this.noOfFilmsInView > 0 ? 0 : current + this.noOfFilmsInView);
     },
     moveLeft() {
         this.currentFirst = this.tryLeft(this.currentFirst);
@@ -42,10 +43,16 @@ const Rack = React.createClass({
             }
         }
     },
+    computeNoOfFilmsInView() {
+        this.noOfFilmsInView = parseInt((window.innerWidth * 5/6 - 72) / 320) || 1;
+    },
     handleResize: function(e) {
-        console.log("rack.js: ", window.innerWidth);
+        this.computeNoOfFilmsInView()
+        console.log("rack.js: ", window.innerWidth, this.noOfFilmsInView);
     },
     componentDidMount: function() {
+        this.windowWidth = window.innerWidth;
+        this.computeNoOfFilmsInView()
         window.addEventListener('resize', this.handleResize);
     },
     componentWillUnmount: function() {

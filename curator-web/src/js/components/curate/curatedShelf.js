@@ -11,7 +11,7 @@ const CuratedShelf = React.createClass({
             <div>
                 <div className="shelf">
                     {
-                        this.props.curationList.default.map(item => {
+                        this.props.curationList.map(item => {
                             return (
                                 <CuratedRack key={keyId()} 
                                     rack={item} 

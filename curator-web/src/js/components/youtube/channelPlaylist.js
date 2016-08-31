@@ -16,6 +16,8 @@ const ChannelPlaylist = React.createClass({
             	<Playlist key={keyId()} 
             		playlist={item} 
             		copyPlaylistToCuration={this.props.copyPlaylistToCuration}
+                    showFilmBubble={this.props.showFilmBubble}
+                    hideFilmBubble={this.props.hideFilmBubble}
             	/>
             ) }
             </div>

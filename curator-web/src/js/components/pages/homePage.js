@@ -3,12 +3,12 @@ import { Provider } from 'react-redux'
 import { Link } from 'react-router'
 
 import Header                from '../frame/header'
-import { getListFromDB }     from '../../actions'
+import { fetchShowListFromDB }     from '../../actions'
 
 
 const ShelfPage = React.createClass({
 	componentWillMount() {
-        this.props.route.store.dispatch(getListFromDB())
+        this.props.route.store.dispatch(fetchShowListFromDB())
     },
 
     render() {

@@ -42,10 +42,21 @@ const playListVideosUrl = (playlistId) => ({
     ].join('&')}
 )
 
+const videoUrl = (videoId) => ({
+    input:videoId,
+    url: [
+        baseApiUrl('videos'), 
+        'id=' + videoId, 
+        'part=contentDetails,snippet'
+    ].join('&')}
+)
+
 // Parse functions. Takes in results and spits out a Promise
 function parseChannelIdData(result) {            
     return new Promise((resolve, reject) => {
-
+        if (!result.items) {
+            reject('No such channel')
+        }
         let channelRecord = result.items
             .filter(v => v.kind === 'youtube#channel')
             .map(item => ({
@@ -66,6 +77,9 @@ function parseChannelIdData(result) {
 
 function parsePlayListsData(result) {
     return new Promise((resolve, reject) => {
+        if (!result.items || result.items.length === 0) {
+            reject('No playlists found')
+        }
         let playlists = result.items
             .filter(v => v.kind === 'youtube#playlist')
             .map(item => ({
@@ -107,6 +121,21 @@ export function parseVideoData(playlistData) {
     return res
 }
 
+function parseVideoDetails(videoData) {
+    console.log('parseVideoDetails', videoData)
+
+    var res = videoData.items.map(item => (
+                {
+                    id: item.id, 
+                    title: item.snippet.title, 
+                    rating: 4, 
+                    views: 2000, 
+                    description: item.snippet.description
+                }
+            ))
+    return res[0]
+}
+
 function getJsonForAllPlaylists(playlists) {
     return Promise.all(playlists.map(pl => getJson(pl)))
 }
@@ -122,5 +151,12 @@ export const fetchPlaylistFromUser = composeP(
     parseChannelIdData,
     getJson, 
     toPromise(playlistsByUserIdUrl))
+
+export const fetchVideoDetails = composeP(
+    parseVideoDetails,
+    getJson,
+    toPromise(videoUrl))
+
+
 
 //export const getVideos = composeP(parseChannelIdData, fetchChannelIdFromUserId)

@@ -9,9 +9,9 @@ body {
 }
 
 h1 { font-family: ‘Georgia’, 'Charcoal', sans-serif;
-    color: #e50914;
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; 
-    margin-left:20px;
+color: #e50914;
+text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; 
+margin-left:20px;
 }
 
 h2 {
@@ -21,6 +21,11 @@ h2 {
 button, input { color:black; }
 .playlistForm {
   input { width:150px; }
+}
+
+.container-full {
+  margin:0 auto;
+  width: 100%;
 }
 
 .mainContent {
@@ -62,6 +67,26 @@ ul#footer, ul.mainNav {
   }
 }
 
+.filmBubble {
+    position:absolute;
+    width:500px;
+    height:600px;
+    margin:auto;
+    border: 1px solid #777777;
+    background-color: #666666;
+    padding:10px;
+    top:10px;
+    left:20px;
+
+    .bubbleOverlay {
+        z-index:100;
+        bg-color:#000066;
+    }
+    .videoDetailOverlay {
+        z-index:10;
+    }
+}
+
 .shelf {
 
   .rack {
@@ -71,12 +96,12 @@ ul#footer, ul.mainNav {
       display:flex;
 
       .rackControl {
-        width:3em;
+        width:36px;
         flex-grow:0;
         margin:auto;
 
         .rackButton{
-          font-size:3em;
+          font-size:36px;
         }
       }
       .rackWindow {
