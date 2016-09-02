@@ -32,13 +32,13 @@ const CuratedRack = React.createClass({
         let filmlist = this.props.rack.films.map((film, i) => (
             <li key={'filmr-'+ i}>
             <span>{film.title}</span> 
-            <span onClick={this.deleteFilm(this.props.rack, film, this)}> Delete </span></li>
+            <span className="fakeLink" onClick={this.deleteFilm(this.props.rack, film, this)}> X </span></li>
             ))
         return (
             <div className="curatorPlaylist" style={this.state.currentStyle} onDragOver={this.dragOver} onDrop={this.dropFilm(this.props.rack, this)}>
                 {
                     <div>
-                        <h3><span onClick={this.deletePlaylist(this.props.rack, this)}> X </span><span>{this.props.rack.genre}</span></h3>
+                        <h3><span className="fakeLink" onClick={this.deletePlaylist(this.props.rack, this)}> X </span><span>{this.props.rack.genre}</span></h3>
                         <ul>{filmlist}</ul>
                     </div>
                 }

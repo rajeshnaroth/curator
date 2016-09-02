@@ -9,7 +9,7 @@ const Channels = ({ channels, linkDestination, removeChannel }) => { console.log
 				<Link to={ linkDestination + '/' + ch }>
 					<span>{ch}</span>
 				</Link>
-				{removeChannel ? <span onClick={(ev) => removeChannel(ch)}> X </span> : ''}
+				{removeChannel ? <span className="fakeLink" onClick={(ev) => removeChannel(ch)}> X </span> : ''}
 			</li>
 		)
 	}

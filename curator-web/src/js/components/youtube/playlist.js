@@ -20,11 +20,11 @@ const Playlist = React.createClass({
     },
     mouseOver: (film, comp) => (ev) => {
         console.log("playlist.js: mouseOver")
-        comp.props.showFilmBubble(film)
+        //comp.props.showFilmBubble(film)
     },
     mouseOut: (film, comp) => (ev) => {
         console.log("playlist.js: mouseOut")
-        comp.props.hideFilmBubble(film)
+        //comp.props.hideFilmBubble(film)
     },
     render() {
         let filmlist = this.props.playlist.films.map(film => (

@@ -6,6 +6,7 @@ import curationList from './curationList'
 import channelPlayList from './channelPlayList'
 import filmDetails from './filmDetails'
 import filmBubble from './filmBubble'
+import newVideo from './newVideo'
 
 export default combineReducers({
     channels,
@@ -14,5 +15,6 @@ export default combineReducers({
     curationList,
     channelPlayList,
     filmDetails,
-    filmBubble
+    filmBubble,
+    newVideo
 });

@@ -1,5 +1,11 @@
 import { fetchPlaylistFromUser, parseVideoData, fetchVideoDetails } from '../api/youtube'
-import { saveFlixToDB, getFlixFromDB, getChannelsFromDB, deleteChannelAndSaveToDB } from '../api/persistence'
+import { 
+	saveFlixToDB, 
+	getFlixFromDB, 
+	getChannelsFromDB, 
+	deleteChannelAndSaveToDB, 
+	addChannelAndSaveToDB 
+} from '../api/persistence'
 
 export const INITIALIZED_SHOW_LIST  = 'INITIALIZED_SHOW_LIST'
 
@@ -9,6 +15,7 @@ export const SAVED_CURATION_LIST  = 'SAVED_CURATION_LIST'
 export const INITIALIZED_CHANNEL_PLAY_LIST = 'INITIALIZED_CHANNEL_PLAY_LIST'
 export const INITIALIZED_CHANNELS = 'INITIALIZED_CHANNELS'
 export const DELETE_CHANNEL = 'DELETE_CHANNEL'
+export const ADD_CHANNEL = 'ADD_CHANNEL'
 
 export const ADD_PLAYLIST_TO_CURATION_LIST = 'ADD_PLAYLIST_TO_CURATION_LIST'
 export const DELETE_PLAYLIST_FROM_CURATION_LIST = 'DELETE_PLAYLIST_FROM_CURATION_LIST'
@@ -22,12 +29,20 @@ export const FETCHED_VIDEO_DETAILS = 'FETCHED_VIDEO_DETAILS'
 export const SHOW_FILM_BUBBLE = 'SHOW_FILM_BUBBLE'
 export const HIDE_FILM_BUBBLE = 'HIDE_FILM_BUBBLE'
 
+export const FETCHED_NEW_VIDEO = 'FETCHED_NEW_VIDEO'
+
 export const START_PLAY = 'START_PLAY'
 
 // Channel
 export const fetchChannelsFromDB = () => (dispatch) => {
 	return getChannelsFromDB().then(channels => {
 			dispatch({type: INITIALIZED_CHANNELS, result: channels})
+	}).catch((err) => console.log(err))
+}
+
+export const addChannel = (channel) => (dispatch) => {
+	return addChannelAndSaveToDB(channel).then(channels => {
+			dispatch({type: ADD_CHANNEL, result: {newChannel:channel, newChannelList:channels}})
 	}).catch((err) => console.log(err))
 }
 
@@ -67,6 +82,17 @@ export const deleteFilmFromCurateList = (playlist, film) => {
 	}
 }
 
+// add new video
+export const fetchNewVideoFromYouTube = (videoId) => {
+	return (dispatch) => {
+		return fetchVideoDetails(videoId).then(videoData => {
+			console.log("actions/fetchNewVideoFromYouTube: ", videoData);
+			        
+				dispatch({type: FETCHED_NEW_VIDEO, result: videoData})
+		}).catch((err) => console.log(err))
+	}
+}
+
 // Show / Shelf
 export const fetchShowListFromDB = (channel) => {
 	return (dispatch) => {
@@ -83,6 +109,7 @@ export const fetchVideosFromYouTube = (userId) => {
 		}).catch((err) => console.log(err))
 	}
 }
+
 
 // Playlist
 

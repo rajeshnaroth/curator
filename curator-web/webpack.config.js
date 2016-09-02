@@ -5,8 +5,8 @@ var APP_DIR = path.resolve(__dirname, 'src');
 var DIST_DIR = path.resolve(__dirname, 'dist');
 module.exports = {
     entry:[
-        'webpack-dev-server/client?http://localhost:5000',
-        'webpack/hot/only-dev-server',
+        //'webpack-dev-server/client?http://localhost:5000',
+        //'webpack/hot/only-dev-server',
         'babel-polyfill', 
         APP_DIR + '/js/index.js'
     ],
@@ -16,14 +16,21 @@ module.exports = {
         filename:'bundle.js'
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.DefinePlugin({
+            'process.env': {
+              'NODE_ENV': JSON.stringify('production')
+            }
+        })
+        //,new webpack.HotModuleReplacementPlugin()
+        
     ],
     module:{
         loaders:[
             {
                 test : /\.js$/,
                 include: APP_DIR,
-                loaders : ['react-hot', 'babel'],
+                loaders : ['babel'],
+                //loaders : ['react-hot', 'babel'],
                 // query:{
                 //     presets:['es2015', 'react']
                 // }
@@ -67,9 +74,14 @@ module.exports = {
             }
         ]
     },
-    devtool: 'inline-source-map',
+    //devtool: 'cheap-module-source-map',
     externals: { 'React': 'react'},
     resolve: {
         extensions: ['', '.js', '.jsx']
     }
 }
+//new webpack.HotModuleReplacementPlugin()
+//loaders : ['react-hot', 'babel'],
+//    devtool: 'cheap-module-source-map',
+
+// devtool: 'inline-source-map',

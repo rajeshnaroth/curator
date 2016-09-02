@@ -17,12 +17,19 @@ margin-left:20px;
 h2 {
   font-family: cursive;
 }
-
+li {
+  list-style: none;
+  list-style-type: none;
+}
 button, input { color:black; }
 .playlistForm {
   input { width:150px; }
 }
 
+.fakeLink {
+  color:#6666aa;
+  cursor:pointer;
+}
 .container-full {
   margin:0 auto;
   width: 100%;
@@ -40,6 +47,16 @@ ul#footer, ul.mainNav {
     display: inline;
     padding: 0.5em 2em;
   }
+}
+
+.videoIdForm{
+  label { width: 13em; }
+  input#newVideoId{ width:11em; }
+}
+
+.playlistForm {
+  label { width: 13em; }
+  input{width: 15em;}
 }
 
 .playerOverlay {
@@ -116,8 +133,6 @@ ul#footer, ul.mainNav {
           transition:left 1s;
           li {
             float: left;
-            list-style: none;
-            list-style-type: none;
             h4 {
               font-size: 1em;
               width: 300px;

@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from 'lodash'
+import { times } from 'ramda'
 
-const Ratings = ({value}) => <h4>{_.times(value, () => '@')}</h4>
+const Ratings = ({value}) => <h5>{times(() => '* ', value).join('')}</h5>
 export default Ratings
