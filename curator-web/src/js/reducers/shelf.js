@@ -1,12 +1,19 @@
 import { INITIALIZED_SHOW_LIST } from '../actions'
 
-const initialState = []
+const initialState = {
+    details:{
+        title:'Untitled',
+    },
+    playlists:[]
+}
 const shelf = (state = initialState, action) => {
   switch (action.type) {
 
     case INITIALIZED_SHOW_LIST:    
-      return action.result;
-
+        if (!action.result) {
+            return initialState;
+        }
+        return action.result;
     default:
       return state;
   }

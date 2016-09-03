@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const Channels = ({ channels, linkDestination, removeChannel }) => { console.log("channels.js: ", channels, channels.map);
+const Channels = ({ channels, linkDestination, removeChannel }) => { 
+	console.log("channels.js: ", channels);
         return (
 	<ul>
 	{

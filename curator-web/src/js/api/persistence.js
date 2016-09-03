@@ -4,11 +4,14 @@ const customPlaylistId = () => Math.floor((Math.random() * 1000000) + 100)
 
 export const saveChannelToDB = (channel, curatedList) => {
     return new Promise((resolve, reject) => {
-            let listToStore = JSON.parse(localStorage.getItem(FLIXLIST))
+            let listToStore = JSON.parse(localStorage.getItem(FLIXLIST)) || {}
             listToStore[channel] = curatedList
             console.log("persistence.js: saving ", channel, listToStore);
-                    
-            localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
+            try {        
+                localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
+            } catch (e) {
+                reject(e)
+            }
             resolve(listToStore);
         })
 }
@@ -18,9 +21,9 @@ export const getChannelFromDB = (channel) => {
             console.log("persistence.js: getting ", channel);
             try {
                 let storedList = JSON.parse(localStorage.getItem(FLIXLIST))
-                resolve(storedList[channel] || [])
+                resolve((storedList && storedList[channel]) ? storedList[channel] : null)
             } catch (err) {
-                resolve([])
+                resolve(null)
             }
         })
 }
@@ -40,14 +43,17 @@ export const getChannelNamesFromDB = () => {
 
 export const addChannelAndSaveToDB = (channel) => {
     return new Promise((resolve, reject) => {
-            let listToStore = JSON.parse(localStorage.getItem(FLIXLIST))
-            listToStore[channel] = [
-                { 
-                    genre: 'Untitled List',
-                    playlistId: customPlaylistId(),
-                    films:[]
-                }
-            ]
+            let listToStore = JSON.parse(localStorage.getItem(FLIXLIST)) || {}
+            listToStore[channel] = { 
+                details:{title:'Untitled'},
+                playlists: [
+                    { 
+                        genre: 'Untitled List',
+                        playlistId: customPlaylistId(),
+                        films:[]
+                    }
+                ]
+            }
             localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
             resolve(Object.keys(listToStore));
         })
@@ -56,9 +62,9 @@ export const addChannelAndSaveToDB = (channel) => {
 export const addNewListToChannelAndSaveToDB = (channel, newListName) => {
     return new Promise((resolve, reject) => {
             let listToStore = JSON.parse(localStorage.getItem(FLIXLIST)) || {}
-            let ch =  listToStore[channel] || []
-            ch.push({genre: newListName, playlistId: customPlaylistId(), films:[] })
-            listToStore[channel] = ch
+            let plist = listToStore[channel] && listToStore[channel].playlists ? listToStore[channel].playlists : []
+            plist.push({genre: newListName, playlistId: customPlaylistId(), films:[] })
+            listToStore[channel].playlists = plist
             console.log("persistence.js: saving", listToStore);
             localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
             resolve(listToStore[channel]);

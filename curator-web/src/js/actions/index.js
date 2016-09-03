@@ -58,7 +58,7 @@ export const deleteChannel = (channel) => (dispatch) => {
 export const getListFromDBForCuration = (channel) => {	        
 	return (dispatch) => {
 		return getChannelFromDB(channel).then(playlistData => {
-				dispatch({type: INITIALIZED_CURATION_LIST, result: playlistData || []})
+				dispatch({type: INITIALIZED_CURATION_LIST, result: playlistData})
 		}).catch((err) => console.log(err))
 	}
 }
@@ -70,7 +70,7 @@ export const deletePlaylist = (channel, playlist) => {
 		])
 		.then(() => { 
 			saveChannelToDB(channel, getState().curationList) 
-		})
+		}).catch((err) => console.log(err))
 	}
 }
 
@@ -82,6 +82,7 @@ export const addNewCuratePlaylist = (channel, newlistName) => {
 		.then(() => { 
 			saveChannelToDB(channel, getState().curationList) 
 		})
+		.catch((err) => console.log(err))
 	}
 }
 
@@ -93,6 +94,7 @@ export const deleteFilmFromCurateList = (channel, playlist, film) => {
 		.then(() => { 
 			saveChannelToDB(channel, getState().curationList) 
 		})
+		.catch((err) => console.log(err))
 	}
 }
 
@@ -104,6 +106,7 @@ export const addPlaylistToCurationList = (channel, playlist) => {
 		.then(() => { 
 			saveChannelToDB(channel, getState().curationList) 
 		})
+		.catch((err) => console.log(err))
 	}
 }
 
@@ -115,6 +118,7 @@ export const addFilmToPlaylist = (channel, playlist, film) =>  {
 		.then(() => { 
 			saveChannelToDB(channel, getState().curationList) 
 		})
+		.catch((err) => console.log(err))
 	}
 }
 
@@ -138,9 +142,11 @@ export const fetchShowListFromDB = (channel) => {
 
 export const fetchVideosFromYouTube = (userId) => {	        
 	return (dispatch) => {
-		return fetchPlaylistFromUser(userId).then(playlistData => {
-				dispatch({type: INITIALIZED_CHANNEL_PLAY_LIST, result: parseVideoData(playlistData)})
-		}).catch((err) => console.log(err))
+		return fetchPlaylistFromUser(userId)
+			.then(playlistData => {
+					dispatch({type: INITIALIZED_CHANNEL_PLAY_LIST, result: parseVideoData(playlistData)})
+			})
+			.catch((err) => console.log(err))
 	}
 }
 

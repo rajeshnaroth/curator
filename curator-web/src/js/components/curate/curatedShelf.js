@@ -12,7 +12,7 @@ const CuratedShelf = React.createClass({
             <div>
                 <div className="shelf">
                     {
-                        this.props.curationList.map(item => {
+                        this.props.curationList.playlists.map(item => {
                             return (
                                 <CuratedRack key={keyId()} 
                                     channel={this.props.channel}

@@ -18,7 +18,7 @@ const Shelf = React.createClass({
                 <div className="col-lg-10 col-md-10">
                     <div className="shelf">
                         {
-                            this.props.shelf.map(item => {
+                            this.props.shelf.playlists.map(item => {
                                 return (
                                     <Rack key={keyId()} rack={item} />
                                 )
