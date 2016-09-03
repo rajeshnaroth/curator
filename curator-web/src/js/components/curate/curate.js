@@ -27,12 +27,13 @@ const Curate = React.createClass({
                             <Channels channels={this.props.channels} linkDestination="/curate" removeChannel={this.props.removeChannel}/>
                         </div>
                     	<div className="col-lg-6 col-md-6">
-                            <button onClick={this.saveFlix}>Save Channel</button>
                             <CuratedShelf 
+                                channel={this.props.channel}
                                 curationList={this.props.curationList} 
                                 addFilmToPlaylist={this.props.addFilmToPlaylist} 
                                 deletePlaylist={this.props.deletePlaylist} 
                                 deleteFilmFromCurateList={this.props.deleteFilmFromCurateList} 
+                                addNewList={this.props.addNewList} 
                             />
                     	</div>
                     	<div className="col-lg-4 col-md-4">

@@ -1,5 +1,4 @@
 import { INITIALIZED_CHANNELS, ADD_CHANNEL } from '../actions'
-import { saveFlixToDB } from '../api/persistence'
 
 const initialState = ['default']
 const channels = (state = initialState, action) => {

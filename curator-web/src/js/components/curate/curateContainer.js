@@ -8,6 +8,7 @@ import {
 	addFilmToPlaylist, 
 	deleteFilmFromCurateList, 
 	deletePlaylist,
+	addNewCuratePlaylist,
 	showFilmBubble,
 	hideFilmBubble,
 	deleteChannel
@@ -24,24 +25,20 @@ const mapStateToProps = function(state, ownProps) {
 
 const mapDispatchToProps = function(dispatch, ownProps) {
 	return {
-		saveCuratedListToDB: function(channel, channelData) {
-			console.log('curatecontainer saveCuratedTubeFlix', channelData)
-			dispatch(saveCuratedListToDB(channel, channelData))
-		},
 		copyPlaylistToCuration: function(playlist) {
 			console.log('curate container copyPlaylistToCuration ----->:')
-			dispatch(addPlaylistToCurationList(playlist, dispatch))
+			dispatch(addPlaylistToCurationList(ownProps.channel, playlist))
 		},
 		addFilmToPlaylist: function(playlist, film) {
 			console.log('curate container addFilmToPlaylist:', playlist, film)
-			dispatch(addFilmToPlaylist(playlist, film, dispatch))
+			dispatch(addFilmToPlaylist(ownProps.channel, playlist, film))
 		},
-		deleteFilmFromCurateList: function(playlist, film) {
-			console.log('curate container addFilmToPlaylist:', playlist, film)
-			dispatch(deleteFilmFromCurateList(playlist, film, dispatch))
+		deleteFilmFromCurateList: function(channel, playlist, film) {
+			console.log('curate container deleteFilmFromCurateList:', channel, playlist, film)
+			dispatch(deleteFilmFromCurateList(channel, playlist, film))
 		},
 		deletePlaylist: function(playlist) {
-			dispatch(deletePlaylist(playlist, dispatch))
+			dispatch(deletePlaylist(ownProps.channel, playlist))
 		},
 		showFilmBubble: function(film) {
 			dispatch(showFilmBubble(film))
@@ -53,6 +50,10 @@ const mapDispatchToProps = function(dispatch, ownProps) {
 			console.log("curateContainer.js:removeChannel ", channel);
 			        
 			dispatch(deleteChannel(channel))
+		},
+		addNewList: function(listName) {
+			console.log("curateContainer.js: ", 'addnewList', ownProps.channel, listName);
+			dispatch(addNewCuratePlaylist(ownProps.channel, listName))        
 		}
 	}
 }

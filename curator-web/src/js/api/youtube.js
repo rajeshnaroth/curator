@@ -1,4 +1,4 @@
-import { curry, compose, composeP } from 'ramda'
+import { compose, composeP } from 'ramda'
 import { getJson, toPromise } from '../utils'
 //https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=PLMoRXD9aFQeoWJ5Ad8ZPeHPP1LEfuqMPl&key=AIzaSyDGS3stBRnJAOZkTCQq-iE59JesxwwMjaM
 //channels?part=snippet&forUsername=GoogleDevelopers// const BASE_API_URL = 'https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails,snippet&key=AIzaSyDGS3stBRnJAOZkTCQq-iE59JesxwwMjaM&maxResults=50'
@@ -140,10 +140,6 @@ function getJsonForAllPlaylists(playlists) {
     return Promise.all(playlists.map(pl => getJson(pl)))
 }
 
-export const fetchChannelIdFromUserId    = compose(getJson, playlistsByUserIdUrl)
-export const fetchPlayListsFromChannelId = compose(getJson, playListsByChannelIdUrl)
-export const fetchVideosFromPlaylist     = compose(getJson, playListVideosUrl)
-
 export const fetchPlaylistFromUser = composeP(
     getJsonForAllPlaylists, 
     parsePlayListsData, 
@@ -157,6 +153,10 @@ export const fetchVideoDetails = composeP(
     getJson,
     toPromise(videoUrl))
 
+
+// export const fetchChannelIdFromUserId    = compose(getJson, playlistsByUserIdUrl)
+// export const fetchPlayListsFromChannelId = compose(getJson, playListsByChannelIdUrl)
+// export const fetchVideosFromPlaylist     = compose(getJson, playListVideosUrl)
 
 
 //export const getVideos = composeP(parseChannelIdData, fetchChannelIdFromUserId)

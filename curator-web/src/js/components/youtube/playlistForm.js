@@ -1,29 +1,21 @@
 import React from 'react'
+import TextField from '../form/textField'
 
 const PlaylistForm = React.createClass({
-	getInitialState() {
-		return {
-			playlistId:'TEDtalksDirector'
-		}
-	},
-	valueChange(ev) {
-		this.setState({playlistId: ev.target.value});
-	},
-	keyPress(ev) {
-		if(ev.key === 'Enter') {
-			this.props.getPlayList(ev.target.value)
-		}
-	},
+	channelName:'',
 	render() {
 		return (
 			<div className="playlistForm">
 				<label for="channelName">Channel User Name or Id: </label>
-				<input size="15" name="channelName" onChange={this.valueChange} onKeyPress={this.keyPress}/>
+				<TextField 
+					size="15" 
+					name="channelName" 
+					onEnter={(val) => this.props.getPlayList(val)} 
+					binder={(val) => (this.channelName = val)}
+				/>
+				<button onClick={() => this.props.getPlayList(this.channelName)}>GO</button>
 			</div>
 		)
 	}
 })
-//					<button onClick={() => this.props.getPlayList(this.state.playlistId)}>Get Playlists</button>
-
-
 export default PlaylistForm;

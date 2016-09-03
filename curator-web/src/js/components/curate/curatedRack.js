@@ -24,9 +24,9 @@ const CuratedRack = React.createClass({
         comp.props.deletePlaylist(playlist)
     },
     deleteFilm: (playlist, film, comp) => () => {
-        console.log("curatedRack.js: deleteFilm", playlist, film.id);
+        console.log("curatedRack.js: deleteFilm", comp.props.channel, playlist, film.id);
                 
-        comp.props.deleteFilmFromCurateList(playlist, film)
+        comp.props.deleteFilmFromCurateList(comp.props.channel, playlist, film)
     },
     render() {
         let filmlist = this.props.rack.films.map((film, i) => (
