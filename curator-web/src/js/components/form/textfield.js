@@ -13,6 +13,7 @@ const TextField = React.createClass({
 	},
 	render() {
 		return (<input 
+					value={this.props.presetValue}
 					size={this.props.size} 
 					id={this.props.name} 
 					name={this.props.name} 

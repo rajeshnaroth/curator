@@ -5,13 +5,17 @@ import Curate from './curate'
 import { 
 	saveCuratedListToDB, 
 	addPlaylistToCurationList, 
+	addFilmToCurationList, 
 	addFilmToPlaylist, 
 	deleteFilmFromCurateList, 
+	movePlayListUpInCurateList,
+	movePlayListDownInCurateList,
 	deletePlaylist,
 	addNewCuratePlaylist,
 	showFilmBubble,
 	hideFilmBubble,
-	deleteChannel
+	deleteChannel,
+	setTargetPlayList
 } from '../../actions'
 
 const mapStateToProps = function(state, ownProps) {
@@ -26,19 +30,28 @@ const mapStateToProps = function(state, ownProps) {
 const mapDispatchToProps = function(dispatch, ownProps) {
 	return {
 		copyPlaylistToCuration: function(playlist) {
-			console.log('curate container copyPlaylistToCuration ----->:')
 			dispatch(addPlaylistToCurationList(ownProps.channel, playlist))
 		},
+		copyFilmToCuration: function(film) {
+			dispatch(addFilmToCurationList(ownProps.channel, film))
+		},
 		addFilmToPlaylist: function(playlist, film) {
-			console.log('curate container addFilmToPlaylist:', playlist, film)
 			dispatch(addFilmToPlaylist(ownProps.channel, playlist, film))
 		},
 		deleteFilmFromCurateList: function(channel, playlist, film) {
-			console.log('curate container deleteFilmFromCurateList:', channel, playlist, film)
-			dispatch(deleteFilmFromCurateList(channel, playlist, film))
+			dispatch(deleteFilmFromCurateList(ownProps.channel, playlist, film))
 		},
 		deletePlaylist: function(playlist) {
 			dispatch(deletePlaylist(ownProps.channel, playlist))
+		},
+		movePlayListUpInCurateList: function(playlist) {
+			dispatch(movePlayListUpInCurateList(ownProps.channel, playlist))
+		},
+		movePlayListDownInCurateList: function(playlist) {
+			dispatch(movePlayListDownInCurateList(ownProps.channel, playlist))
+		},
+		makeCurrentTarget: function(playlist) {
+			dispatch(setTargetPlayList(ownProps.channel, playlist))
 		},
 		showFilmBubble: function(film) {
 			dispatch(showFilmBubble(film))
@@ -47,12 +60,9 @@ const mapDispatchToProps = function(dispatch, ownProps) {
 			dispatch(hideFilmBubble(film))
 		},
 		removeChannel:function(channel) {
-			console.log("curateContainer.js:removeChannel ", channel);
-			        
 			dispatch(deleteChannel(channel))
 		},
 		addNewList: function(listName) {
-			console.log("curateContainer.js: ", 'addnewList', ownProps.channel, listName);
 			dispatch(addNewCuratePlaylist(ownProps.channel, listName))        
 		}
 	}

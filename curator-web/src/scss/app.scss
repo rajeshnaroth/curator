@@ -26,9 +26,16 @@ button, input { color:black; }
   input { width:150px; }
 }
 
-.fakeLink {
+.fakeLink, .fakeLinkIcon {
   color:#6666aa;
   cursor:pointer;
+}
+
+.fakeLinkIcon {
+  color:#9999bb;
+}
+.googleLogin {
+  float:right;
 }
 .container-full {
   margin:0 auto;

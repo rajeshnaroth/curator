@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { saveCuratedListToDB } from '../../actions'
 
-import CuratedShelf            from './curatedShelf'
+import CurationShelf           from './curationShelf'
 import ChannelPlaylist         from '../youtube/channelPlaylist'
 import PlaylistFormContainer   from '../youtube/playlistFormContainer'
 import NewVideoFormContainer   from '../youtube/newVideoFormContainer'
@@ -12,6 +12,15 @@ import FilmBubbleContainer     from '../common/filmBubbleContainer'
 
 
 const Curate = React.createClass({
+    propTypes: {
+        channel: React.PropTypes.string.isRequired,
+        curationList: React.PropTypes.object.isRequired,
+        addFilmToPlaylist: React.PropTypes.func.isRequired,
+        deletePlaylist: React.PropTypes.func.isRequired,
+        deleteFilmFromCurateList: React.PropTypes.func.isRequired,
+        addNewList: React.PropTypes.func.isRequired,
+        makeCurrentTarget: React.PropTypes.func.isRequired
+    },
 	saveFlix() {
         console.log("curate.js: saveFlix()", this.props.channel, this.props.curationList);
         this.props.saveCuratedListToDB(this.props.channel, this.props.curationList)
@@ -27,13 +36,16 @@ const Curate = React.createClass({
                             <Channels channels={this.props.channels} linkDestination="/curate" removeChannel={this.props.removeChannel}/>
                         </div>
                     	<div className="col-lg-6 col-md-6">
-                            <CuratedShelf 
+                            <CurationShelf 
                                 channel={this.props.channel}
                                 curationList={this.props.curationList} 
                                 addFilmToPlaylist={this.props.addFilmToPlaylist} 
                                 deletePlaylist={this.props.deletePlaylist} 
                                 deleteFilmFromCurateList={this.props.deleteFilmFromCurateList} 
+                                movePlayListUpInCurateList={this.props.movePlayListUpInCurateList} 
+                                movePlayListDownInCurateList={this.props.movePlayListDownInCurateList} 
                                 addNewList={this.props.addNewList} 
+                                makeCurrentTarget={this.props.makeCurrentTarget}
                             />
                     	</div>
                     	<div className="col-lg-4 col-md-4">
@@ -42,6 +54,7 @@ const Curate = React.createClass({
                     		<ChannelPlaylist 
                                 channelPlayList={this.props.channelPlayList} 
                                 copyPlaylistToCuration={this.props.copyPlaylistToCuration}
+                                copyFilmToCuration={this.props.copyFilmToCuration}
                                 showFilmBubble={this.props.showFilmBubble}
                                 hideFilmBubble={this.props.hideFilmBubble}
                                 />

@@ -88,11 +88,9 @@ function parsePlayListsData(result) {
                         description: item.snippet.description
             }))
             //.shift()
-        console.log("parsePlayListsData: ", playlists);
         let newPlist = playlists.map(
                 pl => Object.assign({}, pl, playListVideosUrl(pl.playlistId))
             )
-        console.log("parsePlayListsData: ", newPlist);
                 
         resolve(newPlist)
     });
@@ -122,8 +120,6 @@ export function parseVideoData(playlistData) {
 }
 
 function parseVideoDetails(videoData) {
-    console.log('parseVideoDetails', videoData)
-
     var res = videoData.items.map(item => (
                 {
                     id: item.id, 

@@ -18,7 +18,6 @@ export const saveChannelToDB = (channel, curatedList) => {
 
 export const getChannelFromDB = (channel) => {
     return new Promise((resolve, reject) => {
-            console.log("persistence.js: getting ", channel);
             try {
                 let storedList = JSON.parse(localStorage.getItem(FLIXLIST))
                 resolve((storedList && storedList[channel]) ? storedList[channel] : null)
@@ -31,7 +30,6 @@ export const getChannelFromDB = (channel) => {
 // returns just an array of channel names
 export const getChannelNamesFromDB = () => {
     return new Promise((resolve, reject) => {
-            console.log("persistence.js: getting channels ");
             try {
                 let storedList = JSON.parse(localStorage.getItem(FLIXLIST))
                 resolve(Object.keys(storedList))

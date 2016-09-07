@@ -1,36 +1,49 @@
 import React from 'react'
 import TextField from '../form/textField'
-import CuratedRack from './curatedRack'
+import CurationRack from './curationRack'
 
 import { newId } from '../../utils'
-let keyId = newId('curack-');
+let keyId = newId('curacks-');
 
-const CuratedShelf = React.createClass({
+const CurationShelf = React.createClass({
+    propTypes: {
+        channel:React.PropTypes.string.isRequired,
+        addFilmToPlaylist:React.PropTypes.func.isRequired,
+        deletePlaylist:React.PropTypes.func.isRequired,
+        deleteFilmFromCurateList:React.PropTypes.func.isRequired,
+        makeCurrentTarget:React.PropTypes.func.isRequired
+    },
     addNewList: (comp) => (ev) => { comp.props.addNewList(comp.newListName) },
     render() {
+        console.log("curationShelf.js: ", this.props);
+                
         return (
             <div>
                 <div className="shelf">
                     {
                         this.props.curationList.playlists.map(item => {
                             return (
-                                <CuratedRack key={keyId()} 
+                                <CurationRack key={keyId()} 
+                                    currentTarget={this.props.curationList.currentTarget} 
                                     channel={this.props.channel}
                                     rack={item} 
                                     addFilmToPlaylist={this.props.addFilmToPlaylist}
                                     deletePlaylist={this.props.deletePlaylist}
+                                    movePlayListUpInCurateList={this.props.movePlayListUpInCurateList}
+                                    movePlayListDownInCurateList={this.props.movePlayListDownInCurateList}
                                     deleteFilmFromCurateList={this.props.deleteFilmFromCurateList}
+                                    makeCurrentTarget={this.props.makeCurrentTarget}
                                 />
                             )
                         })
                     }
                 </div>
                 <div>
-                    <label for="newPlaylist">Add New List: </label>
+                    <label for="newPlaylist">Add New Category: </label>
                     <TextField size="11" name="newListName" onEnter={(val) => this.props.addNewList(val)} />
                 </div>
             </div>)
     }
 })
-export default CuratedShelf
+export default CurationShelf
 //                    <button onClick={this.addNewList(this)}>Add</button>

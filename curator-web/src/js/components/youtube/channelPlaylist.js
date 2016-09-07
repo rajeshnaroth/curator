@@ -15,7 +15,8 @@ const ChannelPlaylist = React.createClass({
             { this.props.channelPlayList.map(item => 
             	<Playlist key={keyId()} 
             		playlist={item} 
-            		copyPlaylistToCuration={this.props.copyPlaylistToCuration}
+                    copyPlaylistToCuration={this.props.copyPlaylistToCuration}
+            		copyFilmToCuration={this.props.copyFilmToCuration}
                     showFilmBubble={this.props.showFilmBubble}
                     hideFilmBubble={this.props.hideFilmBubble}
             	/>

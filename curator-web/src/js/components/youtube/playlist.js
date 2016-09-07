@@ -11,6 +11,12 @@ const Playlist = React.createClass({
             props.copyPlaylistToCuration(props.playlist)
         }     
     },
+    copyFilmToCuration(props, film) {
+        return () => {
+            console.log("playlist.js----->: ", 'copyFilmToCuration:', film);
+            props.copyFilmToCuration(film)
+        }     
+    },
     startDrag: (film) => (ev) => {
         console.log('startDrag setting', film);
         ev.dataTransfer.setData("film", JSON.stringify(film));
@@ -32,6 +38,7 @@ const Playlist = React.createClass({
                 onDragStart={this.startDrag(film)}
                 onDragEnd={this.endDrag}
                 key={keyId()}>
+                <span className="glyphicon glyphicon-chevron-left" onClick={this.copyFilmToCuration(this.props, film)}></span>
                 <span onMouseOver={_throttle(this.mouseOver(film, this), 2000)} onMouseOut={this.mouseOut(film, this)}>{film.title}</span>
             </li>
         ))

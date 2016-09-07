@@ -6,7 +6,7 @@ const NewVideoForm = (props) => (
 	<div>
 		<div className="videoIdForm">
 			<label for="newVideoId">Video Id: </label>
-			<TextField size="11" name="newVideoId" onEnter={(val) => this.props.getVideo(val)} />
+			<TextField size="11" name="newVideoId" onEnter={(val) => props.getVideo(val)} />
 		</div>
 		<div>
 			<FilmDetails {...props.newVideo} />
