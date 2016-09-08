@@ -25,7 +25,9 @@ const ChannelTable = ({ channelDetails }) => {
 										<ul className="filmStrip">
 										{
 											plist.films.map(film => (
-												<li key={filmKeyId()}>{film.title}</li>
+												<li  key={filmKeyId()}>
+													<figure><img src={'https://i.ytimg.com/vi/' + film.id + '/default.jpg'}/></figure>
+												</li>
 											))
 										}
 										</ul>
