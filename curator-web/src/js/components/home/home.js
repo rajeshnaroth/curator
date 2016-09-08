@@ -12,7 +12,7 @@ const Home = React.createClass({
             <section className="center-block">
             	<div className="row text-center">
             		<div className="col-lg-12 col-md-12">
-	            		<h2>Hi there</h2>
+	            		<h2>Hi there!</h2>
 						<div className="firstMove">
 							<p>Looks like you are new. Lets create your show.</p>
 							<Link to="/curate">Click here to start curating</Link>
@@ -21,7 +21,7 @@ const Home = React.createClass({
 				</div>
                 <div className="row text-center">
                 	<div className="col-lg-12 col-md-12">
-                        <ChannelTable channels={this.props.channels} />
+                        <ChannelTable channelDetails={this.props.channelDetails} />
                 	</div>
                 </div>
 	        </section>

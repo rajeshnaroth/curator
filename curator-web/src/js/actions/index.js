@@ -1,8 +1,10 @@
 import { fetchPlaylistFromUser, parseVideoData, fetchVideoDetails } from '../api/youtube'
 import { 
 	saveChannelToDB, 
+	getChannelDetailsFromDB, 
+	getChannelSummaryFromDB, 
 	getChannelFromDB, 
-	getChannelsFromDB, 
+	getChannelFullDetailsFromDB, 
 	deleteChannelAndSaveToDB, 
 	addChannelAndSaveToDB 
 } from '../api/persistence'
@@ -13,7 +15,8 @@ export const INITIALIZED_CURATION_LIST = 'INITIALIZED_CURATION_LIST'
 export const SAVED_CURATION_LIST  = 'SAVED_CURATION_LIST'
 
 export const INITIALIZED_CHANNEL_PLAY_LIST = 'INITIALIZED_CHANNEL_PLAY_LIST'
-export const INITIALIZED_CHANNELS = 'INITIALIZED_CHANNELS'
+export const INITIALIZED_CHANNEL_DETAILS = 'INITIALIZED_CHANNEL_DETAILS'
+export const INITIALIZED_CHANNEL_SUMMARY = 'INITIALIZED_CHANNEL_SUMMARY'
 export const DELETE_CHANNEL = 'DELETE_CHANNEL'
 export const ADD_CHANNEL = 'ADD_CHANNEL'
 
@@ -42,11 +45,19 @@ export const FETCHED_NEW_VIDEO = 'FETCHED_NEW_VIDEO'
 export const START_PLAY = 'START_PLAY'
 
 // Channel
+export const fetchChannelDetailsFromDB = () => (dispatch) => {
+	return getChannelDetailsFromDB().then(channelDetails => {
+		console.log("index.js: ", channelDetails);
+		        
+			dispatch({type: INITIALIZED_CHANNEL_DETAILS, result: channelDetails})
+	}).catch((err) => console.log(err))
+}
+
 export const fetchChannelsFromDB = () => (dispatch) => {
-	return getChannelsFromDB().then(channels => {
+	return getChannelSummaryFromDB().then(channels => {
 		console.log("index.js: ", channels);
 		        
-			dispatch({type: INITIALIZED_CHANNELS, result: channels})
+			dispatch({type: INITIALIZED_CHANNEL_SUMMARY, result: channels})
 	}).catch((err) => console.log(err))
 }
 

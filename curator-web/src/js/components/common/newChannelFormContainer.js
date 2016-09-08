@@ -5,7 +5,7 @@ import NewChannelForm from './newChannelForm'
 import { addChannel } from '../../actions'
 
 const mapStateToProps = function(state, ownProps) {
-	return {channels: state.channels}
+	return {channels: state.channelSummary}
 }
 
 const mapDispatchToProps = function(dispatch, ownProps) {

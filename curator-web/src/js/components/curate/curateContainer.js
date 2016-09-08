@@ -26,7 +26,7 @@ const mapStateToProps = function(state, ownProps) {
 		channel: ownProps.channel,
 		curationList: state.curationList,
 		channelPlayList: state.channelPlayList,
-		channels:state.channels
+		channels:state.channelSummary
 	}
 }
 

@@ -1,10 +1,10 @@
-import { INITIALIZED_CHANNELS, ADD_CHANNEL, DELETE_CHANNEL } from '../actions'
+import { INITIALIZED_CHANNEL_SUMMARY, ADD_CHANNEL, DELETE_CHANNEL } from '../actions'
 
 const initialState = [{id:'default', title:'default'}]
-const channels = (state = initialState, action) => {
+const channelSummary = (state = initialState, action) => {
   switch (action.type) {
 
-    case INITIALIZED_CHANNELS:    
+    case INITIALIZED_CHANNEL_SUMMARY:    
       return action.result.length === 0 ? initialState : action.result;
 
 	case ADD_CHANNEL:    
@@ -17,4 +17,4 @@ const channels = (state = initialState, action) => {
       return state;
   }
 };
-export default channels
+export default channelSummary

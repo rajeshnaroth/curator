@@ -6,7 +6,7 @@ import Home from './home'
 
 const mapStateToProps = function(state, ownProps) {
 	return {
-		channels:state.channels
+		channelDetails:state.channelDetails
 	}
 }
 

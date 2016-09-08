@@ -1,6 +1,6 @@
 const FLIXLIST = 'flixlist'
 
-const customPlaylistId = () => Math.floor((Math.random() * 1000000) + 100)
+import {customPlaylistId} from '../utils'
 
 export const saveChannelToDB = (channel, curatedList) => {
     return new Promise((resolve, reject) => {
@@ -28,11 +28,11 @@ export const getChannelFromDB = (channel) => {
 }
 
 // returns just an array of channel names
-export const getChannelNamesFromDB = () => {
+export const getChannelDetailsFromDB = () => {
     return new Promise((resolve, reject) => {
             try {
                 let storedList = JSON.parse(localStorage.getItem(FLIXLIST))
-                resolve(Object.keys(storedList))
+                resolve(storedList)
             } catch (err) {
                 resolve([])
             }
@@ -40,7 +40,7 @@ export const getChannelNamesFromDB = () => {
 }
 
 // returns just an array of channel names
-export const getChannelsFromDB = () => {
+export const getChannelSummaryFromDB = () => {
     return new Promise((resolve, reject) => {
             try {
                 let storedList = JSON.parse(localStorage.getItem(FLIXLIST))

@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux'
-import channels from './channels'
+import channelSummary from './channelSummary'
+import channelDetails from './channelDetails'
 import shelf from './shelf'
 import player from './player'
 import curationList from './curationList'
@@ -9,7 +10,8 @@ import filmBubble from './filmBubble'
 import newVideo from './newVideo'
 
 export default combineReducers({
-    channels,
+    channelSummary,
+    channelDetails,
     shelf,
     player,
     curationList,

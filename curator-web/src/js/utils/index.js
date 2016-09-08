@@ -23,6 +23,7 @@ export const getJson = (input) => {
 }
 
 export const getAllJson = (inputList) => Promise.all(inputList.map(p => getJson(p)))
+export const customPlaylistId = () => Math.floor((Math.random() * 1000000) + 100)
 
 export const toPromise = (inputFun) => {
         //return Promise.resolve(inputFun.apply(null, arguments))

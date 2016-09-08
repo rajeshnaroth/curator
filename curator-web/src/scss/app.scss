@@ -114,6 +114,16 @@ ul#footer, ul.mainNav {
   }
 }
 
+.channelTable {
+  li, ul { margin:0; padding:0 ; }
+  a, a:hover, a:visited { color: #cccccc; text-decoration: none;}
+  .channelStrip{
+
+    .filmStrip{
+      li {display:inline;}
+    }
+  }
+}
 .playerOverlay {
   position: absolute; top: 0; left: 0; 
   width:100%; height:100%;
