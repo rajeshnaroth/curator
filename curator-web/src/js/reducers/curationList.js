@@ -5,15 +5,26 @@ import {
     SAVE_FLIX, 
     SET_TARGET_PLAYLIST, 
     ADD_PLAYLIST_TO_CURATION_LIST, 
-    ADD_FILM_TO_CURATION_LIST, 
+    ADD_FILM_TO_TARGET_CURATION_LIST, 
+    ADD_FILM_TO_PLAYLIST_IN_CURATION_LIST, 
     ADD_NEW_EMPTY_PLAYLIST,
+    CHANGE_PLAYLIST_TITLE_IN_CURATION_LIST,
     DELETE_PLAYLIST_FROM_CURATION_LIST,
     MOVE_PLAYLIST_UP_IN_CURATION_LIST,
     MOVE_PLAYLIST_DOWN_IN_CURATION_LIST,
-    DELETE_FILM_FROM_CURATION_LIST 
+    DELETE_FILM_FROM_CURATION_LIST,
+    MOVE_FILM_UP_IN_CURATION_LIST,
+    MOVE_FILM_DOWN_IN_CURATION_LIST 
 } from '../actions'
 
 const customPlaylistId = () => Math.floor((Math.random() * 1000000) + 100)
+
+// convenience function. impure
+const swap = (arrayToMutate, index1, index2) => {
+    let temp = arrayToMutate[index1]
+    arrayToMutate[index1] = arrayToMutate[index2]
+    arrayToMutate[index2] = temp
+}
 
 const initialState = {
     currentTarget:'',
@@ -50,7 +61,7 @@ const curationList = (state = initialState, action) => {
             retVal.playlists = [action.playlist, ...state.playlists]
             return retVal;
         }
-        case ADD_FILM_TO_CURATION_LIST: {
+        case ADD_FILM_TO_TARGET_CURATION_LIST: {
             let retVal = Object.assign({}, state)
             retVal.playlists = Array.from(state.playlists)
             retVal.playlists.map(pl => {
@@ -61,10 +72,49 @@ const curationList = (state = initialState, action) => {
             })
             return retVal;
         }
+        case ADD_FILM_TO_PLAYLIST_IN_CURATION_LIST: {
+            let retVal = Object.assign({}, state)
+            retVal.playlists = Array.from(state.playlists)
+            retVal.playlists.map(pl => {
+                if (pl.playlistId === action.playlist.playlistId) {
+                    pl.films.push(action.film)
+                }
+                return pl
+            })
+            return retVal;
+        }
         case DELETE_PLAYLIST_FROM_CURATION_LIST: {
             let retVal = Object.assign({}, state)
             let newList = Array.from(state.playlists)
             retVal.playlists = newList.filter(pl => pl.playlistId !== action.playlist.playlistId) ;
+            return retVal;
+        }    
+        case MOVE_FILM_UP_IN_CURATION_LIST: {
+            let retVal = Object.assign({}, state)
+            retVal.playlists = Array.from(state.playlists);
+            retVal.playlists.map(pl => {
+                if (pl.playlistId === action.playlist.playlistId) {
+                    let currentIndex = findIndex(propEq('id', action.film.id))(pl.films)
+                    if (currentIndex > 0) {
+                        swap(pl.films, currentIndex, currentIndex - 1)
+                    }
+                }
+                return pl
+            })
+            return retVal;
+        }    
+        case MOVE_FILM_DOWN_IN_CURATION_LIST: {
+            let retVal = Object.assign({}, state)
+            retVal.playlists = Array.from(state.playlists);
+            retVal.playlists.map(pl => {
+                if (pl.playlistId === action.playlist.playlistId) {
+                    let currentIndex = findIndex(propEq('id', action.film.id))(pl.films)
+                    if (currentIndex < pl.films.length - 1) {
+                        swap(pl.films, currentIndex, currentIndex + 1)
+                    }
+                }
+                return pl
+            })
             return retVal;
         }    
         case DELETE_FILM_FROM_CURATION_LIST: {
@@ -82,12 +132,8 @@ const curationList = (state = initialState, action) => {
             let retVal = Object.assign({}, state)
             retVal.playlists = Array.from(state.playlists);
             let currentIndex = findIndex(propEq('playlistId', action.playlist.playlistId))(retVal.playlists)
-            console.log("curationList.js: ", currentIndex);
-                    
             if (currentIndex > 0) {
-                let temp = retVal.playlists[currentIndex - 1]
-                retVal.playlists[currentIndex - 1] = retVal.playlists[currentIndex] 
-                retVal.playlists[currentIndex] = temp
+                swap(retVal.playlists, currentIndex, currentIndex - 1)
             }
             return retVal;
         }    
@@ -95,8 +141,6 @@ const curationList = (state = initialState, action) => {
             let retVal = Object.assign({}, state)
             retVal.playlists = Array.from(state.playlists);
             let currentIndex = findIndex(propEq('playlistId', action.playlist.playlistId))(retVal.playlists)
-            console.log("curationList.js: ", currentIndex);
-                    
             if (currentIndex < retVal.playlists.length - 1) {
                 let temp = retVal.playlists[currentIndex + 1]
                 retVal.playlists[currentIndex + 1] = retVal.playlists[currentIndex] 
@@ -112,6 +156,15 @@ const curationList = (state = initialState, action) => {
                 playlistId: customPlaylistId(),
                 films:[]
             })
+            return retVal
+        }
+        case CHANGE_PLAYLIST_TITLE_IN_CURATION_LIST: {
+            let retVal = Object.assign({}, state)
+            retVal.playlists = state.playlists.map(pl => {
+                if (action.playlist.playlistId === pl.playlistId) pl.genre = action.title
+                return pl
+            })
+            
             return retVal
         }
         case SAVE_FLIX:  

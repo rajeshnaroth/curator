@@ -5,8 +5,10 @@ import Curate from './curate'
 import { 
 	saveCuratedListToDB, 
 	addPlaylistToCurationList, 
-	addFilmToCurationList, 
+	addFilmToTargetCurationList, 
 	addFilmToPlaylist, 
+	moveFilmUpInCurateList, 
+	moveFilmDownInCurateList, 
 	deleteFilmFromCurateList, 
 	movePlayListUpInCurateList,
 	movePlayListDownInCurateList,
@@ -15,7 +17,8 @@ import {
 	showFilmBubble,
 	hideFilmBubble,
 	deleteChannel,
-	setTargetPlayList
+	setTargetPlayList,
+	changePlaylistTitle
 } from '../../actions'
 
 const mapStateToProps = function(state, ownProps) {
@@ -33,12 +36,18 @@ const mapDispatchToProps = function(dispatch, ownProps) {
 			dispatch(addPlaylistToCurationList(ownProps.channel, playlist))
 		},
 		copyFilmToCuration: function(film) {
-			dispatch(addFilmToCurationList(ownProps.channel, film))
+			dispatch(addFilmToTargetCurationList(ownProps.channel, film))
 		},
 		addFilmToPlaylist: function(playlist, film) {
 			dispatch(addFilmToPlaylist(ownProps.channel, playlist, film))
 		},
-		deleteFilmFromCurateList: function(channel, playlist, film) {
+		moveFilmUpInCurateList: function(playlist, film) {
+			dispatch(moveFilmUpInCurateList(ownProps.channel, playlist, film))
+		},
+		moveFilmDownInCurateList: function(playlist, film) {
+			dispatch(moveFilmDownInCurateList(ownProps.channel, playlist, film))
+		},
+		deleteFilmFromCurateList: function(playlist, film) {
 			dispatch(deleteFilmFromCurateList(ownProps.channel, playlist, film))
 		},
 		deletePlaylist: function(playlist) {
@@ -52,6 +61,10 @@ const mapDispatchToProps = function(dispatch, ownProps) {
 		},
 		makeCurrentTarget: function(playlist) {
 			dispatch(setTargetPlayList(ownProps.channel, playlist))
+		},
+		savePlaylistTitle: function(playlist, title) {
+			console.log("curateContainer.js: savePlaylistTitle", playlist, title);
+			dispatch(changePlaylistTitle(ownProps.channel, playlist, title))
 		},
 		showFilmBubble: function(film) {
 			dispatch(showFilmBubble(film))

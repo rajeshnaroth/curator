@@ -1,6 +1,6 @@
-import { INITIALIZED_CHANNELS, ADD_CHANNEL } from '../actions'
+import { INITIALIZED_CHANNELS, ADD_CHANNEL, DELETE_CHANNEL } from '../actions'
 
-const initialState = ['default']
+const initialState = [{id:'default', title:'default'}]
 const channels = (state = initialState, action) => {
   switch (action.type) {
 
@@ -8,6 +8,9 @@ const channels = (state = initialState, action) => {
       return action.result.length === 0 ? initialState : action.result;
 
 	case ADD_CHANNEL:    
+      return action.result.length === 0 ? initialState : action.result.newChannelList;
+
+	case DELETE_CHANNEL:    
       return action.result.length === 0 ? initialState : action.result.newChannelList;
 
     default:

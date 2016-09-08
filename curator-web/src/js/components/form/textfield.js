@@ -1,10 +1,8 @@
 import React from 'react'
 
 const TextField = React.createClass({
-	valueChange(ev) {
-		if (this.props.binder) {
-			this.props.binder(ev.target.value)
-		}
+	valueChange(ev) {	
+		if (typeof this.props.binder === 'function') this.props.binder(ev.target.value)
 	},
 	keyPress(ev) {
 		if(ev.key === 'Enter') {
@@ -12,13 +10,15 @@ const TextField = React.createClass({
 		}
 	},
 	render() {
+		let pval = this.props.presetValue
+
 		return (<input 
-					value={this.props.presetValue}
+					value={pval}
 					size={this.props.size} 
 					id={this.props.name} 
 					name={this.props.name} 
 					onChange={this.valueChange} 
-					onKeyPress={this.keyPress}/> 
+					onKeyPress={this.keyPress} /> 
 				)
 	}
 })

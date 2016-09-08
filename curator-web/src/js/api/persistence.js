@@ -39,11 +39,36 @@ export const getChannelNamesFromDB = () => {
         })
 }
 
+// returns just an array of channel names
+export const getChannelsFromDB = () => {
+    return new Promise((resolve, reject) => {
+            try {
+                let storedList = JSON.parse(localStorage.getItem(FLIXLIST))
+                resolve(Object.keys(storedList).map(channelKey => ({id: channelKey, title: storedList[channelKey].details.title }) ))
+            } catch (err) {
+                resolve([])
+            }
+        })
+}
+
+export const deleteChannelAndSaveToDB = (channel) => {
+    return new Promise((resolve, reject) => {
+            let listToStore = JSON.parse(localStorage.getItem(FLIXLIST))
+            // @todo move this logic out later
+            if (channel !== 'default') {
+                delete listToStore[channel]
+            }
+            localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
+            //resolve(Object.keys(listToStore));
+            resolve(Object.keys(listToStore).map(channelKey => ({id: channelKey, title: listToStore[channelKey].details.title }) ))
+        })
+}
+
 export const addChannelAndSaveToDB = (channel) => {
     return new Promise((resolve, reject) => {
             let listToStore = JSON.parse(localStorage.getItem(FLIXLIST)) || {}
             listToStore[channel] = { 
-                details:{title:'Untitled'},
+                details:{title:channel},
                 playlists: [
                     { 
                         genre: 'Untitled List',
@@ -53,7 +78,8 @@ export const addChannelAndSaveToDB = (channel) => {
                 ]
             }
             localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
-            resolve(Object.keys(listToStore));
+            resolve(Object.keys(listToStore).map(channelKey => ({id: channelKey, title: listToStore[channelKey].details.title }) ))
+            // resolve(Object.keys(listToStore));
         })
 }
 
@@ -66,18 +92,7 @@ export const addNewListToChannelAndSaveToDB = (channel, newListName) => {
             console.log("persistence.js: saving", listToStore);
             localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
             resolve(listToStore[channel]);
+            
     })
-}
-
-export const deleteChannelAndSaveToDB = (channel) => {
-    return new Promise((resolve, reject) => {
-            let listToStore = JSON.parse(localStorage.getItem(FLIXLIST))
-            // @todo move this logic out later
-            if (channel !== 'default') {
-                delete listToStore[channel]
-            }
-            localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
-            resolve(Object.keys(listToStore));
-        })
 }
 

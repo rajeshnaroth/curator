@@ -17,13 +17,41 @@ margin-left:20px;
 h2 {
   font-family: cursive;
 }
+
+h3 {
+  margin:10px 0;
+}
+
 li {
   list-style: none;
   list-style-type: none;
 }
+
 button, input { color:black; }
+
 .playlistForm {
   input { width:150px; }
+}
+
+input[type=text] {
+  &.editableText {
+    background-color: transparent;
+    color:#bbbbbb;
+    border: 1px solid transparent;
+    margin: 10px;
+    padding: 5px;
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+    &:focus {
+      background-color: #666666;
+      color:#ffffff;
+      border-color: #66afe9;
+      outline: 0;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    }
+  }
 }
 
 .fakeLink, .fakeLinkIcon {
@@ -34,7 +62,7 @@ button, input { color:black; }
 .fakeLinkIcon {
   color:#9999bb;
 }
-.googleLogin {
+.googleLogin, .userMenu {
   float:right;
 }
 .container-full {
@@ -57,13 +85,33 @@ ul#footer, ul.mainNav {
 }
 
 .videoIdForm{
-  label { width: 13em; }
-  input#newVideoId{ width:11em; }
+  label { width: 10em; }
+  input#newVideoId{ background-color: #cccccc; width:11em; }
 }
 
 .playlistForm {
-  label { width: 13em; }
-  input{width: 15em;}
+  label { width: 10em; }
+  input{width: 10em; background-color: #cccccc;}
+}
+
+.curatorPlaylist {
+  padding: 10px 5px 20px 5px;
+
+  .itemControls {
+    float: right;
+  }
+
+  li:hover {
+    background-color: #777777;
+  }
+
+  h3 {
+    border-bottom: 1px solid #555555;
+    padding-bottom:5px;
+    &:hover { 
+      border-bottom: 1px solid #999999; 
+    }
+  }
 }
 
 .playerOverlay {

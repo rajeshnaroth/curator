@@ -1,30 +1,24 @@
 import React from 'react'
-import { Provider } from 'react-redux'
 import { Link } from 'react-router'
 
-import Header                from '../frame/header'
-import { fetchShowListFromDB }     from '../../actions'
+import Header from '../frame/header'
+import HomeContainer from '../home/homeContainer'
+import { fetchChannelsFromDB }     from '../../actions'
 
 
-const ShelfPage = React.createClass({
+const HomePage = React.createClass({
 	componentWillMount() {
-        this.props.route.store.dispatch(fetchShowListFromDB())
+        this.props.route.store.dispatch(fetchChannelsFromDB())
     },
 
     render() {
         return (
                 <div>
                     <Header />
-					<div>
-						<h2>Hi there</h2>
-						<div className="firstMove">
-							<p>Looks like you are new. Lets create your show.</p>
-							<Link to="/curate">Click here to start curating</Link>
-						</div>
-					</div>
+					<HomeContainer />
                 </div>
         )
     }
 })
 
-export default ShelfPage
+export default HomePage

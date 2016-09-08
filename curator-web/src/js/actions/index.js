@@ -2,7 +2,7 @@ import { fetchPlaylistFromUser, parseVideoData, fetchVideoDetails } from '../api
 import { 
 	saveChannelToDB, 
 	getChannelFromDB, 
-	getChannelNamesFromDB, 
+	getChannelsFromDB, 
 	deleteChannelAndSaveToDB, 
 	addChannelAndSaveToDB 
 } from '../api/persistence'
@@ -20,11 +20,15 @@ export const ADD_CHANNEL = 'ADD_CHANNEL'
 export const SET_TARGET_PLAYLIST = 'SET_TARGET_PLAYLIST'
 export const ADD_PLAYLIST_TO_CURATION_LIST = 'ADD_PLAYLIST_TO_CURATION_LIST'
 export const DELETE_PLAYLIST_FROM_CURATION_LIST = 'DELETE_PLAYLIST_FROM_CURATION_LIST'
+export const MOVE_FILM_UP_IN_CURATION_LIST = 'MOVE_FILM_UP_IN_CURATION_LIST'
+export const MOVE_FILM_DOWN_IN_CURATION_LIST = 'MOVE_FILM_DOWN_IN_CURATION_LIST'
 export const DELETE_FILM_FROM_CURATION_LIST = 'DELETE_FILM_FROM_CURATION_LIST'
-export const ADD_FILM_TO_CURATION_LIST = 'ADD_FILM_TO_CURATION_LIST'
+export const ADD_FILM_TO_TARGET_CURATION_LIST = 'ADD_FILM_TO_TARGET_CURATION_LIST'
+export const ADD_FILM_TO_PLAYLIST_IN_CURATION_LIST = 'ADD_FILM_TO_PLAYLIST_IN_CURATION_LIST'
 export const MOVE_PLAYLIST_UP_IN_CURATION_LIST = 'MOVE_PLAYLIST_UP_IN_CURATION_LIST'
 export const MOVE_PLAYLIST_DOWN_IN_CURATION_LIST = 'MOVE_PLAYLIST_DOWN_IN_CURATION_LIST'
 export const ADD_NEW_EMPTY_PLAYLIST = 'ADD_NEW_EMPTY_PLAYLIST'
+export const CHANGE_PLAYLIST_TITLE_IN_CURATION_LIST = 'CHANGE_PLAYLIST_TITLE_IN_CURATION_LIST'
 
 export const OPEN_PLAYER = 'OPEN_PLAYER'
 export const CLOSE_PLAYER = 'CLOSE_PLAYER'
@@ -39,7 +43,9 @@ export const START_PLAY = 'START_PLAY'
 
 // Channel
 export const fetchChannelsFromDB = () => (dispatch) => {
-	return getChannelNamesFromDB().then(channels => {
+	return getChannelsFromDB().then(channels => {
+		console.log("index.js: ", channels);
+		        
 			dispatch({type: INITIALIZED_CHANNELS, result: channels})
 	}).catch((err) => console.log(err))
 }
@@ -52,10 +58,9 @@ export const addChannel = (channel) => (dispatch) => {
 
 export const deleteChannel = (channel) => (dispatch) => {
 	return deleteChannelAndSaveToDB(channel).then(channels => {
-			dispatch({type: INITIALIZED_CHANNELS, result: channels})
+			dispatch({type: DELETE_CHANNEL, result: {newChannel:channel, newChannelList:channels}})
 	}).catch((err) => console.log(err))
 }
-
 
 // Curator
 export const getListFromDBForCuration = (channel) => {	        
@@ -111,6 +116,42 @@ export const addNewCuratePlaylist = (channel, newlistName) => {
 	}
 }
 
+export const addFilmToPlaylist = (channel, playlist, film) => {
+	return (dispatch, getState) => {
+		Promise.all([
+			dispatch({type: ADD_FILM_TO_PLAYLIST_IN_CURATION_LIST, playlist: playlist, film:film})
+		])
+		.then(() => { 
+			saveChannelToDB(channel, getState().curationList) 
+		})
+		.catch((err) => console.log(err))
+	}
+}
+
+export const moveFilmUpInCurateList = (channel, playlist, film) => {
+	return (dispatch, getState) => {
+		Promise.all([
+			dispatch({type: MOVE_FILM_UP_IN_CURATION_LIST, playlist: playlist, film:film})
+		])
+		.then(() => { 
+			saveChannelToDB(channel, getState().curationList) 
+		})
+		.catch((err) => console.log(err))
+	}
+}
+
+export const moveFilmDownInCurateList = (channel, playlist, film) => {
+	return (dispatch, getState) => {
+		Promise.all([
+			dispatch({type: MOVE_FILM_DOWN_IN_CURATION_LIST, playlist: playlist, film:film})
+		])
+		.then(() => { 
+			saveChannelToDB(channel, getState().curationList) 
+		})
+		.catch((err) => console.log(err))
+	}
+}
+
 export const deleteFilmFromCurateList = (channel, playlist, film) => {
 	return (dispatch, getState) => {
 		Promise.all([
@@ -135,10 +176,23 @@ export const addPlaylistToCurationList = (channel, playlist) => {
 	}
 }
 
-export const addFilmToCurationList = (channel, film) =>  {
+export const addFilmToTargetCurationList = (channel, film) =>  {
 	return (dispatch, getState) => {
 		Promise.all([
-			dispatch({type: ADD_FILM_TO_CURATION_LIST, channel:channel, curationList: getState().curationList, film:film})
+			dispatch({type: ADD_FILM_TO_TARGET_CURATION_LIST, channel:channel, curationList: getState().curationList, film:film})
+		])
+		.then(() => { 
+			saveChannelToDB(channel, getState().curationList) 
+		})
+		.catch((err) => console.log(err))
+	}
+}
+
+export const changePlaylistTitle = (channel, playlist, title) =>  {
+
+	return (dispatch, getState) => {
+		Promise.all([
+			dispatch({type: CHANGE_PLAYLIST_TITLE_IN_CURATION_LIST, playlist: playlist, title:title})
 		])
 		.then(() => { 
 			saveChannelToDB(channel, getState().curationList) 

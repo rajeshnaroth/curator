@@ -15,10 +15,8 @@ const CurationShelf = React.createClass({
     },
     addNewList: (comp) => (ev) => { comp.props.addNewList(comp.newListName) },
     render() {
-        console.log("curationShelf.js: ", this.props);
-                
         return (
-            <div>
+            <section>
                 <div className="shelf">
                     {
                         this.props.curationList.playlists.map(item => {
@@ -31,8 +29,11 @@ const CurationShelf = React.createClass({
                                     deletePlaylist={this.props.deletePlaylist}
                                     movePlayListUpInCurateList={this.props.movePlayListUpInCurateList}
                                     movePlayListDownInCurateList={this.props.movePlayListDownInCurateList}
+                                    moveFilmUpInCurateList={this.props.moveFilmUpInCurateList}
+                                    moveFilmDownInCurateList={this.props.moveFilmDownInCurateList}
                                     deleteFilmFromCurateList={this.props.deleteFilmFromCurateList}
                                     makeCurrentTarget={this.props.makeCurrentTarget}
+                                    savePlaylistTitle={this.props.savePlaylistTitle}
                                 />
                             )
                         })
@@ -42,7 +43,7 @@ const CurationShelf = React.createClass({
                     <label for="newPlaylist">Add New Category: </label>
                     <TextField size="11" name="newListName" onEnter={(val) => this.props.addNewList(val)} />
                 </div>
-            </div>)
+            </section>)
     }
 })
 export default CurationShelf

@@ -22,12 +22,13 @@ const Curate = React.createClass({
         makeCurrentTarget: React.PropTypes.func.isRequired
     },
 	saveFlix() {
-        console.log("curate.js: saveFlix()", this.props.channel, this.props.curationList);
         this.props.saveCuratedListToDB(this.props.channel, this.props.curationList)
     },
 	render() {
+        console.log("curate.js: ", this.props.channels);
+                
         return (
-                <div style={{position:'relative'}}>
+                <section style={{position:'relative'}}>
                     
                     <div className="row">
                         <div className="col-lg-2 col-md-2">
@@ -41,15 +42,22 @@ const Curate = React.createClass({
                                 curationList={this.props.curationList} 
                                 addFilmToPlaylist={this.props.addFilmToPlaylist} 
                                 deletePlaylist={this.props.deletePlaylist} 
+                                moveFilmUpInCurateList={this.props.moveFilmUpInCurateList} 
+                                moveFilmDownInCurateList={this.props.moveFilmDownInCurateList} 
                                 deleteFilmFromCurateList={this.props.deleteFilmFromCurateList} 
                                 movePlayListUpInCurateList={this.props.movePlayListUpInCurateList} 
                                 movePlayListDownInCurateList={this.props.movePlayListDownInCurateList} 
                                 addNewList={this.props.addNewList} 
                                 makeCurrentTarget={this.props.makeCurrentTarget}
+                                savePlaylistTitle={this.props.savePlaylistTitle}
                             />
                     	</div>
                     	<div className="col-lg-4 col-md-4">
-                            <NewVideoFormContainer />
+                            <h6>Enter a video Id </h6>
+                            <NewVideoFormContainer 
+                                copyFilmToCuration={this.props.copyFilmToCuration}
+                            />
+                            <h6>Or Enter a Channel Id </h6>
                     		<PlaylistFormContainer />
                     		<ChannelPlaylist 
                                 channelPlayList={this.props.channelPlayList} 
@@ -61,7 +69,7 @@ const Curate = React.createClass({
                     	</div>
                     </div>
                     <FilmBubbleContainer />
-		        </div>
+		        </section>
         )
     }
 })

@@ -2,7 +2,7 @@ import { INITIALIZED_SHOW_LIST } from '../actions'
 
 const initialState = {
     details:{
-        title:'Untitled',
+        title:'default',
     },
     playlists:[]
 }

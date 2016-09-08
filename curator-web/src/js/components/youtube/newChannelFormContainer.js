@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import NewChannelForm from './newChannelForm'
-import { fetchVideosFromYouTube } from '../../actions'
+import { addFilmToTargetCurationList } from '../../actions'
 
 const mapStateToProps = function(state, ownProps) {
 	return {channels: state.channels}
@@ -11,8 +11,8 @@ const mapStateToProps = function(state, ownProps) {
 const mapDispatchToProps = function(dispatch, ownProps) {
 
 	return {
-		addChannel: function(channel) {
-			//dispatch(fetchVideosFromYouTube(playlistId))
+		copyFilmToCuration: function(film) {
+			dispatch(addFilmToTargetCurationList(ownProps.channel, film))
 		}
 	}
 }
