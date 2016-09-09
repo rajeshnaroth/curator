@@ -35,7 +35,7 @@ const initialState = {
 }
 
 const curationList = (state = initialState, action) => {
-    console.log("curationList.js: ", action, state);
+    // console.log("curationList.js: ", action, state);
             
     switch (action.type) {
         case INITIALIZED_CURATION_LIST:

@@ -10,7 +10,7 @@ const Home = React.createClass({
 	render() {
         return (
             <section className="center-block">
-            	<div className="row text-center">
+            	<div style={{display:'none'}}className="row text-center">
             		<div className="col-lg-12 col-md-12">
 	            		<h2>Hi there!</h2>
 						<div className="firstMove">
@@ -19,10 +19,12 @@ const Home = React.createClass({
 						</div>
 					</div>
 				</div>
-                <div className="row text-center">
-                	<div className="col-lg-12 col-md-12">
+                <div className="row">
+                    <div className="col-lg-3 col-md-3"></div>
+                    <div className="col-lg-6 col-md-6">
                         <ChannelTable channelDetails={this.props.channelDetails} />
-                	</div>
+                    </div>
+                    <div className="col-lg-3 col-md-3"></div>
                 </div>
 	        </section>
         )

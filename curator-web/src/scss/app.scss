@@ -117,11 +117,15 @@ ul#footer, ul.mainNav {
 .channelTable {
   li, ul { margin:0; padding:0 ; }
   a, a:hover, a:visited { color: #cccccc; text-decoration: none;}
-  .channelStrip{
 
-    .filmStrip{
-      li, li figure {display:inline;}
-    }
+  .channelItem { border-bottom:1px solid #ff7777; margin-bottom:0.2em;}
+  .channelStrip p{
+    height:140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 }
 .playerOverlay {
