@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { EditableText } from '../form/editableText'
 
 const Channels = ({ channels, linkDestination, removeChannel }) => { 
     return (

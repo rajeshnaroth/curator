@@ -1,7 +1,9 @@
 import React from 'react'
 import { flatten, pipeP } from 'ramda'
+import { cancellableTimeoutPromise } from '../../utils'
 
 const ChannelPreview = React.createClass({
+	allSlides:[],
 	propTypes: {
 		playlists:React.PropTypes.array.isRequired,
 	},
@@ -9,82 +11,84 @@ const ChannelPreview = React.createClass({
 		return {
 			title:'',
 			backgroundImage:'none',
-			opacity:0
+			opacity:0,
+			backgroundSize: '100%',
+			bgSizeTransition: 'background-size 0s',
+			letterSpacing:'1px',
+			letterSpacingTransition: 'letter-spacing 0s'
 		}
+	},
+	componentWillUnmount(){
+		this.allSlides.map(slide => slide.cancel())
 	},
 	componentWillMount() {
 		let slides = this.props.playlists.map((p) => {
-			let textFade = [
-				this.changeTextAfter(p.genre, 1), 
-				this.fadeInAfter(1), 
-				this.fadeOutAfter(5)
-			]
 			let imageSlides = p.films.map(f => [
-				this.changeTextAfter(f.title, 0.1), 
-				this.changeBgAfter(f.id, 1),
-				this.fadeInAfter(1), 
-				this.fadeOutAfter(3)
+				(this.resetEffects()), 
+				(this.changeTitleText(f.title)), 
+				(this.changeBgImage(f.id)),
+				(this.fadeIn()),
+
+				(this.delay(4000 + Math.random() * 2000)),
+				(this.fadeOut()),
+				(this.delay(1000))
 			])
-			// return [...textFade, this.changeTextAfter('', 1), this.fadeInAfter(1), ...imageSlides]
+			
 			return [...imageSlides]
 		})
-		let allSlides = flatten(slides)
-		console.log("channelPreview.js: ", flatten(slides));
-		        
+		this.allSlides = flatten(slides)
+		// remove the last three so that the slide stays on.
+		this.allSlides.pop()
+		this.allSlides.pop()
+		this.allSlides.pop()
+		// Yeah pop pop pop!!
+		
+		console.log("channelPreview.js: ", this.allSlides);
+		                        
 		if (slides.length > 0) {
-			pipeP(...allSlides)()
+			pipeP(...(this.allSlides.map(s => s.promise)))()
 		}
 	},
-	fadeOutAfter(sec) { 
-		return (
-			() => new Promise((resolve, reject) => {
-														setTimeout(() => { 
-															console.log('opacity:0 aft ', sec)
-															this.setState({opacity:0})
-															resolve('')
-														}, sec * 1000)
-													})
-		)
+	delay(sec) {
+		return cancellableTimeoutPromise(() => { }, sec)
 	},
-	fadeInAfter(sec) {
-		return (
-			() => new Promise((resolve, reject) => {
-														setTimeout(() => { 
-															console.log('opacity:1 aft ', sec)
-															this.setState({opacity:1})
-															resolve('')
-														}, sec * 1000)
-													})
-		)
+	fadeOut() {
+		return cancellableTimeoutPromise(() => { this.setState({opacity:0}) }, 10)
 	},
-	changeTextAfter(text, sec){ 
-		return (
-			() => new Promise((resolve, reject) => {
-														setTimeout(() => { 
-															console.log(text,  'aft ', sec)
-															this.setState({title:text})
-															resolve(text)
-														}, sec * 1000)
-													})
-		)
+	fadeIn() {
+		return cancellableTimeoutPromise(() => { this.setState({opacity:1}) }, 10)
 	},
-	changeBgAfter(id, sec){ 
-		return (
-			() => new Promise((resolve, reject) => {
-														setTimeout(() => { 
-															console.log('url(https://i.ytimg.com/vi/' + id + '/default.jpg)',  'aft ', sec)
-															this.setState({backgroundImage:'url(https://i.ytimg.com/vi/' + id + '/hqdefault.jpg)'})
-															resolve('')
-														}, sec * 1000)
-													})
-		)
+	changeTitleText(text){ 
+		return cancellableTimeoutPromise(() => { this.setState({
+			title:text,
+			letterSpacing:'0.25em',
+			letterSpacingTransition:'letter-spacing 12s'
+		}) }, 10)
+	},
+	resetEffects(videoId){ 
+		return cancellableTimeoutPromise(() => { this.setState({
+			backgroundSize: '100%',
+			bgSizeTransition: 'background-size 0s',
+			letterSpacingTransition:'letter-spacing 0s',
+			letterSpacing:'0px'
+		}) }, 10)
+	},
+	changeBgImage(videoId){ 
+		return cancellableTimeoutPromise(() => { this.setState({
+			bgSizeTransition: 'background-size 12s',
+			backgroundImage: 'url(https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg)',
+			backgroundSize: '150%'
+		}) }, 10)
 	},
 	render() {
 		return (
 			<p style={{
-				transition:'opacity 1s', 
+				transition:'opacity 1s,' + this.state.bgSizeTransition + ',' + this.state.letterSpacingTransition, 
+				transitionTimingFunction: 'linear',
 				opacity:this.state.opacity,
-				backgroundImage:this.state.backgroundImage
+				backgroundImage:this.state.backgroundImage,
+				backgroundSize:this.state.backgroundSize,
+				letterSpacing:this.state.letterSpacing
 			}}>{this.state.title}</p>
 		)
 	}

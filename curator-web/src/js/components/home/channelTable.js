@@ -14,12 +14,12 @@ const ChannelTable = ({ channelDetails }) => {
 		<ul >
 		{
 			channelList.map((ch, i) => <li className="row channelItem" key={'chn-' + i}>
+				<Link to={ 'show/' + ch }>
 					<h3 className="col-lg-3 col-md-3">{channelDetails[ch].details.title}</h3>
 					<div className="col-lg-9 col-md-9 channelStrip">
-						<Link to={ 'show/' + ch }>
 							<ChannelPreview key={cpKeyId()} playlists={channelDetails[ch].playlists} />
-						</Link>
 					</div>
+				</Link>
 				</li>
 			)
 		}

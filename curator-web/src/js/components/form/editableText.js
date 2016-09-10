@@ -1,6 +1,10 @@
 import React from 'react'
 
 const EditableText = React.createClass({
+	propTypes: {
+		name:React.PropTypes.string.isRequired,
+		onEnter:React.PropTypes.func.isRequired
+	},
 	getInitialState() {
 		return {value: this.props.presetValue}
 	},

@@ -8,10 +8,11 @@ body {
   color:$mainTextColor;
 }
 
-h1 { font-family: ‘Georgia’, 'Charcoal', sans-serif;
-color: #e50914;
-text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; 
-margin-left:20px;
+h1 { 
+  font-family: ‘Georgia’, 'Charcoal', sans-serif;
+  color: #e50914;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; 
+  margin-left:20px;
 }
 
 h2 {
@@ -115,17 +116,27 @@ ul#footer, ul.mainNav {
 }
 
 .channelTable {
+  padding:0;
   li, ul { margin:0; padding:0 ; }
   a, a:hover, a:visited { color: #cccccc; text-decoration: none;}
-
-  .channelItem { border-bottom:1px solid #ff7777; margin-bottom:0.2em;}
-  .channelStrip p{
-    height:140px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-repeat: no-repeat;
-    background-position: center;
+  .channelItem { 
+    background-color:#333333;
+    border-bottom:1px solid #b18080; 
+    margin-bottom:0.2em;
+  }
+  .channelStrip {
+    padding:0;
+    p {
+      height:140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin:0;
+      color:white;
+      text-shadow: 0px 0px 16px rgba(0,0,0,1)
+    }
   }
 }
 .playerOverlay {
@@ -223,4 +234,7 @@ ul#footer, ul.mainNav {
   }
 }
 
-.navbar-default { background-color: #333333; }
+.navbar-default { 
+    background-color: transparent; 
+    border-bottom:0px solid transparent;
+}
