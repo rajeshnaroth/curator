@@ -34,7 +34,11 @@ const Curate = React.createClass({
                         <div className="col-lg-2 col-md-2">
                             <NewChannelFormContainer />
                             <h5>Channels</h5>
-                            <Channels channels={this.props.channels} linkDestination="/curate" removeChannel={this.props.removeChannel}/>
+                            <Channels 
+                                channels={this.props.channels} 
+                                linkDestination="/curate" 
+                                saveChannelDetails={this.props.saveChannelDetails}
+                                removeChannel={this.props.removeChannel}/>
                         </div>
                     	<div className="col-lg-6 col-md-6">
                             <CurationShelf 

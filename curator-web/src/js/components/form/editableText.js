@@ -20,12 +20,9 @@ const EditableText = React.createClass({
 		}
 	},
 	focusIn(ev) {
-		console.log("editableText.js: focusIn");
-		        
 		ev.stopPropagation();
 	},
 	focusOut(ev) {
-		console.log("editableText.js: focusOut");
 		this.callCommit(ev.target.value)
 		ev.stopPropagation();
 	},
@@ -37,20 +34,23 @@ const EditableText = React.createClass({
 	},
 	render() {
 
-		return (<input type="text"
-					className="editableText"
-					value={this.state.value}
-					size={this.state.value.length + 1} 
-					id={this.props.name} 
-					name={this.props.name} 
-					onFocus={this.focusIn} 
-					onClick={this.focusIn} 
-					onChange={this.valueChange} 
-					onKeyPress={this.keyPress} 
-					onBlur={this.focusOut}
-				/> 
-				)
+		let inputProps = {
+			className:"editableText",
+			size:this.state.value.length + 1,
+			id:this.props.name,
+			name:this.props.name,
+			onFocus:this.focusIn,
+			onClick:this.focusIn,
+			onChange:this.valueChange,
+			onKeyPress:this.keyPress,
+			onBlur:this.focusOut
+		}
+		if (this.props.isTextArea) {
+			return (<input type="text" value={this.state.value} {...inputProps} />)
+		} else {
+			return (<textarea type="text" {...inputProps}>{this.state.value}</textarea>)
+		}
 	}
 })
 
-export default EditableText;
+export default EditableText

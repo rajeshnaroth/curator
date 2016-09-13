@@ -75,6 +75,11 @@ const mapDispatchToProps = function(dispatch, ownProps) {
 		removeChannel:function(channel) {
 			dispatch(deleteChannel(channel))
 		},
+		saveChannelDetails:function(channelDetails) {
+			console.log("curateContainer.js: saveChannelDetails", channelDetails);
+			        
+			//dispatch(saveChannelDetails(channelDetails))
+		},
 		addNewList: function(listName) {
 			dispatch(addNewCuratePlaylist(ownProps.channel, listName))        
 		}

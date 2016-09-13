@@ -47,9 +47,7 @@ export const cancellableTimeoutPromise = (f, millisec) => {
 		promise: () => new Promise( 
 			(resolve, reject) =>  {
 				if (cancelled) {
-					reject('promise cancelled')
-					console.log("channelPreview.js: ", 'Slide cancelled');
-					        
+					reject('promise cancelled')					        
 				} else {
 					timerId = setTimeout(
 						() => { 
@@ -62,7 +60,6 @@ export const cancellableTimeoutPromise = (f, millisec) => {
 		),
 		cancel: () => {
 			if (timerId > 0) {
-				console.log("Timeout cleared ", slide.timerId);
 				clearTimeout(timerId)
 				cancelled = true
 			}
