@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { getFreshList } from '../../actions'
 
 import Header          from '../frame/header'
-import PlayerContainer from '../player/PlayerContainer'
+import PlayerContainer from '../player/playerContainer'
 
 let filmInfo = {
     id:'DnzCYUr17nk',

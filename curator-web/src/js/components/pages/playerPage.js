@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { triggerOpenPlayer } from '../../actions'
 
-import PlayerContainer from '../player/PlayerContainer'
+import PlayerContainer from '../player/playerContainer'
 
 const PlayerPage = React.createClass({
     componentWillMount() {
