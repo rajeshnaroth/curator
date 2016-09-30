@@ -57,7 +57,7 @@ const Playlist = React.createClass({
                 onDragEnd={this.endDrag}
                 key={keyId()}>
                 <span className="glyphicon glyphicon-chevron-left" onClick={this.copyFilmToCuration(this.props, film)}></span>
-                <span onMouseOver={_throttle(this.mouseOver(film, this), 2000)} onMouseOut={this.mouseOut(film, this)}>{film.title}</span>
+                <span onMouseOver={_throttle(this.mouseOver(film, this), 2000)} onMouseOut={this.mouseOut(film)}>{film.title}</span>
             </li>
         ))
         return (

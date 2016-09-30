@@ -5,7 +5,6 @@ import { saveCuratedListToDB } from '../../actions'
 import CurationShelf           from './curationShelf'
 import ChannelPlaylist         from '../youtube/channelPlaylist'
 import PlaylistFormContainer   from '../youtube/playlistFormContainer'
-import NewVideoFormContainer   from '../youtube/newVideoFormContainer'
 import NewChannelFormContainer from '../common/newChannelFormContainer'
 import Channels                from '../common/channels'
 import FilmBubbleContainer     from '../common/filmBubbleContainer'
@@ -64,11 +63,6 @@ const Curate = React.createClass({
                             />
                     	</div>
                     	<div className="col-lg-4 col-md-4">
-                            <h6>Enter a video Id </h6>
-                            <NewVideoFormContainer 
-                                copyFilmToCuration={this.props.copyFilmToCuration}
-                            />
-                            <h6>Or Enter a Channel Id </h6>
                     		<PlaylistFormContainer />
                     		<ChannelPlaylist 
                                 channelPlayList={this.props.channelPlayList} 

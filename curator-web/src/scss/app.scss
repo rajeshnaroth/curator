@@ -8,6 +8,10 @@ body {
   color:$mainTextColor;
 }
 
+a, a:visited {
+  color:#85b5ea;
+}
+
 h1 { 
   font-family: ‘Georgia’, 'Charcoal', sans-serif;
   color: #e50914;
@@ -30,9 +34,6 @@ li {
 
 button, input, textarea { color:black; }
 
-.playlistForm {
-  input { width:150px; }
-}
 
 input[type=text], textarea {
   &.editableText {
@@ -44,6 +45,10 @@ input[type=text], textarea {
     -moz-transition: all .5s;
     -webkit-transition: all .5s;
     transition: all .5s;
+    background:transparent url(../assets/images/pen.png) no-repeat top right;
+    background-size: 1.3em;
+    padding-right:1.6em;
+    margin-left: 0;
     &:focus {
       background-color: #666666;
       color:#ffffff;
@@ -56,15 +61,16 @@ input[type=text], textarea {
 }
 
 .editChannel {
-  label { width:10em; vertical-align: top}
-  input[type=text], textarea {
-    background-color: #555656;
-  }
-  
+  #editChannelName, #editChannelDescr { width:100%; }
+  #editChannelName { font-size:2.5em; margin:0 0; border-bottom: 1px solid;}
+  #editChannelDescr { font-size:1.1em; }
 }
 .fakeLink, .fakeLinkIcon {
-  color:#6666aa;
+  color:#85b5ea;
   cursor:pointer;
+  &:hover {
+    text-decoration:underline;
+  }
 }
 
 .fakeLinkIcon {
@@ -92,14 +98,13 @@ ul#footer, ul.mainNav {
   }
 }
 
-.videoIdForm{
-  label { width: 10em; }
-  input#newVideoId{ background-color: #cccccc; width:11em; }
-}
-
 .playlistForm {
-  label { width: 10em; }
-  input{width: 10em; background-color: #cccccc;}
+  label { width: 30em; }
+  input{width: 90%; background-color: #cccccc;}
+}
+.newChannelForm {
+  label { width: 30em; }
+  input{width: 100%; background-color: #cccccc;}
 }
 
 .curatorPlaylist {
@@ -140,6 +145,7 @@ ul#footer, ul.mainNav {
     p {
       height:140px;
       display: flex;
+      display: -webkit-flex;
       align-items: center;
       justify-content: center;
       background-repeat: no-repeat;
@@ -160,8 +166,11 @@ ul#footer, ul.mainNav {
 
   .playerContent {
     display: flex;
+    display: -webkit-flex;
     justify-content: center;
+    -webkit-justify-content: center;
     align-items: center;
+    -webkit-align-items: center;
     width: 100%;
 
     .iframeContent {
@@ -174,6 +183,8 @@ ul#footer, ul.mainNav {
     }
   }
 }
+
+
 
 .filmBubble {
     position:absolute;
@@ -202,6 +213,7 @@ ul#footer, ul.mainNav {
 
     .rackSpace {
       display:flex;
+      display: -webkit-flex;
 
       .rackControl {
         width:36px;
@@ -214,6 +226,7 @@ ul#footer, ul.mainNav {
       }
       .rackWindow {
         flex-grow:1;
+        -webkit-flex-grow:1;
         overflow: hidden;
         height: 240px;
         position: relative;

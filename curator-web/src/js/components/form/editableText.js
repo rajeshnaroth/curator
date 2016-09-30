@@ -11,13 +11,10 @@ const EditableText = React.createClass({
 		return {value: this.props.presetValue}
 	},
 	componentWillReceiveProps(props) {
-		console.log("editableText.js: componentWillReceiveProps", props);
-		        
 		this.setState({value: props.presetValue})
 	},
 	valueChange(ev) {
 		this.setState({value:ev.target.value})
-		console.log("editableText.js: valueChange", ev.target.value);        
 		if (typeof this.props.binder === 'function') {
 			this.props.binder(ev.target.value)
 		}

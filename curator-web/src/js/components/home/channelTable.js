@@ -15,7 +15,10 @@ const ChannelTable = ({ channelDetails }) => {
 		{
 			channelList.map((ch, i) => <li className="row channelItem" key={'chn-' + i}>
 				<Link to={ 'show/' + ch }>
-					<h3 className="col-lg-3 col-md-3">{channelDetails[ch].details.title}</h3>
+					<div className="col-lg-3 col-md-3">
+						<h3>{channelDetails[ch].details.title}</h3>
+						<p>{channelDetails[ch].details.description}</p>
+					</div>
 					<div className="col-lg-9 col-md-9 channelStrip">
 							<ChannelPreview key={cpKeyId()} playlists={channelDetails[ch].playlists} />
 					</div>

@@ -1,5 +1,5 @@
-# Curator web
-
+# Tube2Flix
+This is a fun app that lets you create playlists from youtube and present it like old Netflix. Its still very much under construction. It uses localstorage for persistence.
 
 ## Step 1: First, you will need to install git, node, npm and webpack
 
@@ -40,3 +40,5 @@ Run:
 
 ### Notes
 Go easy on the app. I am using my personal youtube API id in the calls. I know its a bad idea to put it in the code. I'll move it to an env variable soon. At least this will get you started.
+
+The app works fine on Chrome, FF and Safari. Make sure your security settings doesn't block localStorage access. FF has some weird CSS transition issue. Still debugging that. 

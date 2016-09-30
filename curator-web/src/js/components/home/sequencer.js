@@ -6,7 +6,7 @@ import { pipeP } from 'ramda'
 
 const Sequencer = {
 	create() {
-		var sequences = [];
+		let sequences = [];
 		return Object.create({
 			// For async functions that need to be waited upon.
 			addPromise(promise) {

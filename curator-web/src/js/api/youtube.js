@@ -1,16 +1,17 @@
 import { compose, composeP } from 'ramda'
-import { getJson, toPromise } from '../utils'
+import { getJson, toPromise, timeBasedId } from '../utils'
 //https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=PLMoRXD9aFQeoWJ5Ad8ZPeHPP1LEfuqMPl&key=AIzaSyDGS3stBRnJAOZkTCQq-iE59JesxwwMjaM
 //channels?part=snippet&forUsername=GoogleDevelopers// const BASE_API_URL = 'https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails,snippet&key=AIzaSyDGS3stBRnJAOZkTCQq-iE59JesxwwMjaM&maxResults=50'
 const BASE_API_ENDPOINT = 'https://www.googleapis.com/youtube/v3/'
 const API_KEY = 'AIzaSyDGS3stBRnJAOZkTCQq-iE59JesxwwMjaM'
 
 const baseApiUrl = (resourceName) => BASE_API_ENDPOINT + resourceName + '?key=' + API_KEY
+const fakePlaylistId = timeBasedId('pl-')
 
 //playlistId=PLMoRXD9aFQeoWJ5Ad8ZPeHPP1LEfuqMPl&
 
 // Url construction
-// Pair results with parseChannelIdData()
+// Pair results with parseChannelIdDataToUrl()
 const playlistsByUserIdUrl = (userId) => ({
     input:userId,
     url: [
@@ -20,7 +21,7 @@ const playlistsByUserIdUrl = (userId) => ({
     ].join('&')}
 )
 
-// Pair results with parsePlayListsData()
+// Pair results with parsePlayListsDataToUrls()
 const playListsByChannelIdUrl = (channelId) => ({
     input:channelId,
     url: [
@@ -31,7 +32,7 @@ const playListsByChannelIdUrl = (channelId) => ({
     ].join('&')}
 )
 
-//Pair results with parseVideoData
+//Pair results with parsePlaylistData
 const playListVideosUrl = (playlistId) => ({
     input:playlistId,
     url: [
@@ -52,54 +53,48 @@ const videoUrl = (videoId) => ({
 )
 
 // Parse functions. Takes in results and spits out a Promise
-function parseChannelIdData(result) {            
-    return new Promise((resolve, reject) => {
-        if (!result.items) {
-            reject('No such channel')
-        }
-        let channelRecord = result.items
-            .filter(v => v.kind === 'youtube#channel')
-            .map(item => ({
-                        channelId: item.id, 
-                        title: item.snippet.title, 
-                        description: item.snippet.description
-            }))
-            .shift()
+const parseChannelIdDataToUrl = (result) => new Promise((resolve, reject) => {
+    if (!result.items) {
+        reject('No such channel')
+    }
+    let channelRecord = result.items
+        .filter(v => v.kind === 'youtube#channel')
+        .map(item => ({
+                    channelId: item.id, 
+                    title: item.snippet.title, 
+                    description: item.snippet.description
+        }))
+        .shift()
 
-        if (!channelRecord || !channelRecord.channelId) {
-            // no channel id. So try with the user id
-            resolve(Object.assign({}, channelRecord, playListsByChannelIdUrl(result.input)))
-        } else {
-            resolve(Object.assign({}, channelRecord, playListsByChannelIdUrl(channelRecord.channelId)))
-        }
-    });
-}
+    if (!channelRecord || !channelRecord.channelId) {
+        // no channel id. So try with the user id
+        resolve(Object.assign({}, channelRecord, playListsByChannelIdUrl(result.input)))
+    } else {
+        resolve(Object.assign({}, channelRecord, playListsByChannelIdUrl(channelRecord.channelId)))
+    }
+})
 
-function parsePlayListsData(result) {
-    return new Promise((resolve, reject) => {
-        if (!result.items || result.items.length === 0) {
-            reject('No playlists found')
-        }
-        let playlists = result.items
-            .filter(v => v.kind === 'youtube#playlist')
-            .map(item => ({
-                        playlistId: item.id, 
-                        title: item.snippet.title, 
-                        description: item.snippet.description
-            }))
-            //.shift()
-        let newPlist = playlists.map(
-                pl => Object.assign({}, pl, playListVideosUrl(pl.playlistId))
-            )
-                
-        resolve(newPlist)
-    });
-}
+const parsePlayListsDataToUrls = (result) => new Promise((resolve, reject) => {
+    if (!result.items || result.items.length === 0) {
+        reject('No playlists found')
+    }
+    let playlists = result.items
+        .filter(v => v.kind === 'youtube#playlist')
+        .map(item => ({
+                    playlistId: item.id, 
+                    title: item.snippet.title, 
+                    description: item.snippet.description
+        }))
+        //.shift()
+    let newPlist = playlists.map(
+            pl => Object.assign({}, pl, playListVideosUrl(pl.playlistId))
+        )
+            
+    resolve(newPlist)
+})
 
-export function parseVideoData(playlistData) {
-    console.log('parseVideoData', playlistData)
-
-    var res = playlistData.map(pl => (
+const parsePlaylistData = (playlistData) => new Promise((resolve, reject) => {
+    let res = playlistData.map(pl => (
         {
             genre: pl.title,
             playlistId: pl.playlistId,
@@ -116,11 +111,29 @@ export function parseVideoData(playlistData) {
                 ))
         })
     )
-    return res
-}
+    resolve(res)
+})
+
+const parseVideoDetailsToFakePlaylist = (videoData) => new Promise((resolve, reject) => {
+    console.log(videoData)
+    let res = [{
+        genre: 'New List',
+        playlistId: fakePlaylistId(),
+        films: videoData.items.map(item => (
+            {
+                id: item.id, 
+                title: item.snippet.title, 
+                rating: 4, 
+                views: 2000, 
+                description: item.snippet.description
+            }
+        ))
+    }]
+    resolve(res)
+})
 
 function parseVideoDetails(videoData) {
-    var res = videoData.items.map(item => (
+    let res = videoData.items.map(item => (
                 {
                     id: item.id, 
                     title: item.snippet.title, 
@@ -132,17 +145,21 @@ function parseVideoDetails(videoData) {
     return res[0]
 }
 
-function getJsonForAllPlaylists(playlists) {
-    return Promise.all(playlists.map(pl => getJson(pl)))
-}
+const getJsonForAllPlaylists = (playlists) => Promise.all(playlists.map(pl => getJson(pl)))
 
-export const fetchPlaylistFromUser = composeP(
+export const fetchPlaylistFromChannelByNameOrId = composeP(
+    parsePlaylistData,
     getJsonForAllPlaylists, 
-    parsePlayListsData, 
+    parsePlayListsDataToUrls, 
     getJson, 
-    parseChannelIdData,
+    parseChannelIdDataToUrl,
     getJson, 
     toPromise(playlistsByUserIdUrl))
+
+export const fetchSingleVideoAsFakePlaylist = composeP(
+    parseVideoDetailsToFakePlaylist,
+    getJson,
+    toPromise(videoUrl))
 
 export const fetchVideoDetails = composeP(
     parseVideoDetails,
@@ -153,6 +170,4 @@ export const fetchVideoDetails = composeP(
 // export const fetchChannelIdFromUserId    = compose(getJson, playlistsByUserIdUrl)
 // export const fetchPlayListsFromChannelId = compose(getJson, playListsByChannelIdUrl)
 // export const fetchVideosFromPlaylist     = compose(getJson, playListVideosUrl)
-
-
-//export const getVideos = composeP(parseChannelIdData, fetchChannelIdFromUserId)
+//export const getVideos = composeP(parseChannelIdDataToUrl, fetchChannelIdFromUserId)

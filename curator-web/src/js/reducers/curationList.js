@@ -1,13 +1,12 @@
 import { head, findIndex, propEq } from 'ramda'
 import { 
     INITIALIZED_CURATION_LIST, 
-    SAVED_CURATION_LIST, 
     SAVE_FLIX, 
-    SET_TARGET_PLAYLIST, 
+    SET_TARGET_PLAYLIST_IN_CURATION_LIST, 
     ADD_PLAYLIST_TO_CURATION_LIST, 
     ADD_FILM_TO_TARGET_CURATION_LIST, 
     ADD_FILM_TO_PLAYLIST_IN_CURATION_LIST, 
-    ADD_NEW_EMPTY_PLAYLIST,
+    ADD_NEW_EMPTY_PLAYLIST_IN_CURATION_LIST,
     CHANGE_PLAYLIST_TITLE_IN_CURATION_LIST,
     DELETE_PLAYLIST_FROM_CURATION_LIST,
     MOVE_PLAYLIST_UP_IN_CURATION_LIST,
@@ -38,8 +37,8 @@ const curationList = (state = initialState, action) => {
     // console.log("curationList.js: ", action, state);
             
     switch (action.type) {
-        case INITIALIZED_CURATION_LIST:
-        case SAVED_CURATION_LIST: {
+        case INITIALIZED_CURATION_LIST: {
+        // case SAVED_CURATION_LIST: {
             if (!action.result) {
                 return initialState;
             }
@@ -48,10 +47,10 @@ const curationList = (state = initialState, action) => {
             if (first) {
                 action.result.currentTarget = first.playlistId
             }
-            console.log("curationList.js: INITIALIZED/SAVED_CURATION_LIST", action.result);
+            console.log("curationList.js: INITIALIZED", action.result);
             return Object.assign({}, action.result);
         }
-        case SET_TARGET_PLAYLIST: {
+        case SET_TARGET_PLAYLIST_IN_CURATION_LIST: {
             let retVal = Object.assign({}, state)
             retVal.currentTarget = action.playlist.playlistId
             return retVal
@@ -148,7 +147,7 @@ const curationList = (state = initialState, action) => {
             }
             return retVal;
         }    
-        case ADD_NEW_EMPTY_PLAYLIST: {
+        case ADD_NEW_EMPTY_PLAYLIST_IN_CURATION_LIST: {
             let retVal = Object.assign({}, state)
             retVal.playlists = Array.from(state.playlists)
             retVal.playlists.push({

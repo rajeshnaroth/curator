@@ -39,3 +39,7 @@ export const newId = (prefix) => {
 	return () => prefix + (key++)
 }
 
+export const timeBasedId = (prefix) => {
+	return () => prefix + (new Date()).getMilliseconds()
+}
+

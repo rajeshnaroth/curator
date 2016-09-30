@@ -21,7 +21,7 @@ module.exports = {
               'NODE_ENV': JSON.stringify('development')
             }
         })
-        //,new webpack.HotModuleReplacementPlugin()
+        ,new webpack.HotModuleReplacementPlugin()
         
     ],
     module:{
@@ -29,8 +29,8 @@ module.exports = {
             {
                 test : /\.js$/,
                 include: APP_DIR,
-                loaders : ['babel'],
-                //loaders : ['react-hot', 'babel'],
+                //loaders : ['babel'],
+                loaders : ['react-hot', 'babel'],
                 // query:{
                 //     presets:['es2015', 'react']
                 // }
@@ -48,10 +48,10 @@ module.exports = {
             {
                 test: /\.png$/, loader: "file?name=images/[hash].[ext]?"
             }, 
-            {
-                test: /\.png$/, 
-                loader: "url-loader?limit=100000" 
-            }, 
+            // {
+            //     test: /\.png$/, 
+            //     loader: "url-loader?limit=100000" 
+            // }, 
             {
                 test: /\.jpg$/, 
                 loader: "file-loader" 

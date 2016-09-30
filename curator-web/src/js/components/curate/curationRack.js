@@ -28,7 +28,6 @@ const CurationRack = React.createClass({
     dropFilm: (playlist, comp) => (ev) => {
         ev.preventDefault();
         let droppedFilm = JSON.parse(ev.dataTransfer.getData("film"))
-        console.log(comp)
         comp.setState({currentStyle:normalStyle})
         comp.props.addFilmToPlaylist(playlist, droppedFilm)
     },

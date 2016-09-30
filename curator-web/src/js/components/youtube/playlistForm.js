@@ -14,9 +14,9 @@ const PlaylistForm = React.createClass({
 	render() {
 		return (
 			<div className="playlistForm">
-				<label for="channelName">Channel Name or Id: </label>
+				<p><label for="channelName">Enter a Channel Name/Id or a Video Id: </label></p>
 				<TextField 
-					size="15" 
+					size="30" 
 					name="channelName" 
 					presetValue={this.state.channelName}
 					binder={ (val) => this.setState({channelName: val}) } 
@@ -24,6 +24,7 @@ const PlaylistForm = React.createClass({
 				/>
 				<button onClick={ () => this.props.getPlayList(this.state.channelName) }>GO</button>
 				<p>
+					<span>E.g.</span>
 					<span className="fakeLink" onClick={this.loadPlayList('everyframeapainting')}> EveryFrameAPainting </span>  &nbsp;
 					<span className="fakeLink" onClick={this.loadPlayList('Film4video')}> Film4video </span> &nbsp;
 					<span className="fakeLink" onClick={this.loadPlayList('ArtTutorOnline')}> ArtTutorOnline </span>

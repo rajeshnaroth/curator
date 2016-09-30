@@ -10,7 +10,7 @@ const GoogleLogin = React.createClass({
 		}
 	},
 	onSignIn(googleUser) {
-		  var profile = googleUser.getBasicProfile();
+		  let profile = googleUser.getBasicProfile();
 
 		  this.setState({name: profile.getName()})
 		  this.setState({id: profile.getId()})
@@ -22,7 +22,7 @@ const GoogleLogin = React.createClass({
 	},
 	signOut(ev) {
 		ev.stopPropagation();
-	    var auth2 = gapi.auth2.getAuthInstance();
+	    let auth2 = gapi.auth2.getAuthInstance();
 	    auth2.signOut().then(function () {
 	      console.log('User signed out.');
 	    });
