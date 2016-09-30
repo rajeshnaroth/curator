@@ -6,6 +6,7 @@ import {
 	getChannelFromDB, 
 	getChannelFullDetailsFromDB, 
 	deleteChannelAndSaveToDB, 
+	updateChannelAndSaveToDB, 
 	addChannelAndSaveToDB 
 } from '../api/persistence'
 
@@ -19,6 +20,7 @@ export const INITIALIZED_CHANNEL_DETAILS = 'INITIALIZED_CHANNEL_DETAILS'
 export const INITIALIZED_CHANNEL_SUMMARY = 'INITIALIZED_CHANNEL_SUMMARY'
 export const DELETE_CHANNEL = 'DELETE_CHANNEL'
 export const ADD_CHANNEL = 'ADD_CHANNEL'
+export const UPDATE_CHANNEL = 'UPDATE_CHANNEL'
 
 export const SET_TARGET_PLAYLIST = 'SET_TARGET_PLAYLIST'
 export const ADD_PLAYLIST_TO_CURATION_LIST = 'ADD_PLAYLIST_TO_CURATION_LIST'
@@ -70,6 +72,12 @@ export const addChannel = (channel) => (dispatch) => {
 export const deleteChannel = (channel) => (dispatch) => {
 	return deleteChannelAndSaveToDB(channel).then(channels => {
 			dispatch({type: DELETE_CHANNEL, result: {newChannel:channel, newChannelList:channels}})
+	}).catch((err) => console.log(err))
+}
+
+export const updateChannelDetails = (channel, channelDetails) => (dispatch) => {
+	return updateChannelAndSaveToDB(channel, channelDetails).then(playlistData => {
+			dispatch({type: INITIALIZED_CURATION_LIST, result: playlistData})
 	}).catch((err) => console.log(err))
 }
 

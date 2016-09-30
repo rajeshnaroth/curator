@@ -8,7 +8,7 @@ const NewChannelForm = React.createClass({
 			<div className="playlistForm">
 				<div className="playlistForm">
 					<label for="newChannelName">New Channel: </label>
-					   <TextField size="15" name="newChannelName" onEnter={(val) => this.props.addChannel(val)}/>
+					   <TextField size="15" isTextArea={false} name="newChannelName" onEnter={(val) => this.props.addChannel(val)}/>
 				</div>
 			</div>
 		)

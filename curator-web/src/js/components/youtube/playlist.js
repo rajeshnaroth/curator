@@ -2,9 +2,12 @@ import React from 'react'
 import _throttle from 'lodash/throttle'
 
 import { newId } from '../../utils'
+
 let keyId = newId('pl-');
 
 const Playlist = React.createClass({
+    bubbleTimeout: 0,
+    bubbleIsOut: false,
     copyPlaylistToCuration(props) {
         return () => {
             console.log("playlist.js----->: ", 'copyPlaylistToCuration:', props.playlist);
@@ -19,18 +22,33 @@ const Playlist = React.createClass({
     },
     startDrag: (film) => (ev) => {
         console.log('startDrag setting', film);
-        ev.dataTransfer.setData("film", JSON.stringify(film));
+        ev.dataTransfer.setData("film", JSON.stringify(film))
     },
     endDrag(ev) {
 
     },
     mouseOver: (film, comp) => (ev) => {
-        console.log("playlist.js: mouseOver")
-        //comp.props.showFilmBubble(film)
+        if (comp.bubbleTimeout || comp.bubbleIsOut) { 
+            return 
+        }
+        comp.bubbleTimeout = setTimeout(() => {
+            console.log("playlist.js: mouseOver, show bubble")
+            comp.bubbleTimeout = 0
+            comp.bubbleIsOut = true
+            comp.props.showFilmBubble(film)
+        }, 300)
     },
     mouseOut: (film, comp) => (ev) => {
-        console.log("playlist.js: mouseOut")
-        //comp.props.hideFilmBubble(film)
+        if (comp.bubbleTimeout) {
+            console.log("playlist.js: mouseOut. clear timeout")
+            clearTimeout(comp.bubbleTimeout)
+            comp.bubbleTimeout = 0
+        }
+        if (comp.bubbleIsOut) {
+            console.log("playlist.js: mouseOut. close bubble")
+            comp.bubbleIsOut = false
+            comp.props.hideFilmBubble(film)
+        }
     },
     render() {
         let filmlist = this.props.playlist.films.map(film => (

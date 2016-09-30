@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router'
-import EditChannel from './editChannel'
 
 const Channels = React.createClass({
 	render() {
@@ -19,7 +18,7 @@ const Channels = React.createClass({
 					)
 				}
 				</ul>
-				<EditChannel onSave={this.props.saveChannel}/>
+				
 			</div>
 		)	
 	}

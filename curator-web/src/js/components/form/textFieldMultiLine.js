@@ -5,14 +5,20 @@ const TextFieldMultiLine = React.createClass({
 		if (typeof this.props.binder === 'function') this.props.binder(ev.target.value)
 	},
 	keyPress(ev) {
+		        
 		if(ev.key === 'Enter') {
+		console.log("textfieldMultiline.js: ", ev);
 			this.props.onEnter(ev.target.value)
 		}
 	},
 	render() {
 		let pval = this.props.presetValue
-
-		return (<textarea 
+console.log("textfieldMultiline.js: ", pval);
+        
+		return (<textarea
+					class="editableText"
+					placeHolderText="Click to edit"
+					value={pval}
 					size={this.props.size} 
 					id={this.props.name} 
 					name={this.props.name} 

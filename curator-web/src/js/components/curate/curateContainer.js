@@ -17,6 +17,7 @@ import {
 	showFilmBubble,
 	hideFilmBubble,
 	deleteChannel,
+	updateChannelDetails,
 	setTargetPlayList,
 	changePlaylistTitle
 } from '../../actions'
@@ -75,10 +76,10 @@ const mapDispatchToProps = function(dispatch, ownProps) {
 		removeChannel:function(channel) {
 			dispatch(deleteChannel(channel))
 		},
-		saveChannelDetails:function(channelDetails) {
+		saveChannelDetails:function(channel, channelDetails) {
 			console.log("curateContainer.js: saveChannelDetails", channelDetails);
 			        
-			//dispatch(saveChannelDetails(channelDetails))
+			dispatch(updateChannelDetails(channel, channelDetails))
 		},
 		addNewList: function(listName) {
 			dispatch(addNewCuratePlaylist(ownProps.channel, listName))        

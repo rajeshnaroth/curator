@@ -2,14 +2,22 @@ import React from 'react'
 
 const EditableText = React.createClass({
 	propTypes: {
+		isTextArea:React.PropTypes.bool,
 		name:React.PropTypes.string.isRequired,
-		onEnter:React.PropTypes.func.isRequired
+		onEnter:React.PropTypes.func,
+		binder:React.PropTypes.func,
 	},
 	getInitialState() {
 		return {value: this.props.presetValue}
 	},
+	componentWillReceiveProps(props) {
+		console.log("editableText.js: componentWillReceiveProps", props);
+		        
+		this.setState({value: props.presetValue})
+	},
 	valueChange(ev) {
 		this.setState({value:ev.target.value})
+		console.log("editableText.js: valueChange", ev.target.value);        
 		if (typeof this.props.binder === 'function') {
 			this.props.binder(ev.target.value)
 		}
@@ -46,9 +54,9 @@ const EditableText = React.createClass({
 			onBlur:this.focusOut
 		}
 		if (this.props.isTextArea) {
-			return (<input type="text" value={this.state.value} {...inputProps} />)
+			return (<textarea type="text" {...inputProps} value={this.state.value} placeholder="Click to Edit"></textarea>)
 		} else {
-			return (<textarea type="text" {...inputProps}>{this.state.value}</textarea>)
+			return (<input type="text" value={this.state.value} {...inputProps} />)
 		}
 	}
 })

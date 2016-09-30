@@ -51,6 +51,7 @@ export const getChannelSummaryFromDB = () => {
         })
 }
 
+// The **SaveToDB APIs are bad patterns.. We need to move the channel data out separately and then we can make this better
 export const deleteChannelAndSaveToDB = (channel) => {
     return new Promise((resolve, reject) => {
             let listToStore = JSON.parse(localStorage.getItem(FLIXLIST))
@@ -61,6 +62,17 @@ export const deleteChannelAndSaveToDB = (channel) => {
             localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
             //resolve(Object.keys(listToStore));
             resolve(Object.keys(listToStore).map(channelKey => ({id: channelKey, title: listToStore[channelKey].details.title }) ))
+        })
+}
+
+export const updateChannelAndSaveToDB = (channel, channelDetails) => {
+    return new Promise((resolve, reject) => {
+            let listToStore = JSON.parse(localStorage.getItem(FLIXLIST))
+            // @todo move this logic out later
+            console.log("persistence.js: updateChannelAndSaveToDB ", channel, channelDetails);
+            listToStore[channel].details = Object.assign(listToStore[channel].details, channelDetails) // merge       
+            localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
+            resolve(listToStore[channel]);
         })
 }
 

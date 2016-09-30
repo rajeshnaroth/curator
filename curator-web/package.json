@@ -1,7 +1,7 @@
 {
   "name": "curator-web",
   "version": "1.0.0",
-  "description": "Web app for the festival show",
+  "description": "Curate youtube channels and show it in Netflix mode",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -20,7 +20,9 @@
   "homepage": "https://github.com/rajeshnaroth/curator#readme",
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "immutable": "^3.8.1",
     "lodash": "^4.13.1",
+    "ramda": "^0.22.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
@@ -46,7 +48,6 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.5.3",
     "node-sass": "^3.7.0",
-    "ramda": "^0.22.1",
     "react-hot-loader": "^1.3.0",
     "redux-promise": "^0.5.3",
     "sass-loader": "^3.2.0",

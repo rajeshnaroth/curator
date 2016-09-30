@@ -12,12 +12,12 @@ const FilmBubble = React.createClass({
 
 	componentWillMount: function() {
 		//this.props.getVideoDetails(this.props.videoId)
-		// console.log("filmBubble.js: componentWillMount ");
+		console.log("filmBubble.js: componentWillMount ");
 	},
 	componentWillUpdate: function(nextProps, nextState) { // prepare for an upcoming update
 		if (nextProps.filmBubble.videoId) {
 			// console.log("filmBubble.js: componentWillUpdate 2 getVideoDetails", nextProps);
-			//this.props.getVideoDetails(nextProps.filmBubble.videoId)
+			this.props.getVideoDetails(nextProps.filmBubble.videoId)
 		}
 	},
 	componentWillReceiveProps(nextProps) {

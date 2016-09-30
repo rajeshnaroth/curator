@@ -39,30 +39,3 @@ export const newId = (prefix) => {
 	return () => prefix + (key++)
 }
 
-// f is a function of arity 0. You can send in curreid functions
-export const cancellableTimeoutPromise = (f, millisec) => { 
-	let timerId = 0
-	let cancelled = false
-	return {
-		promise: () => new Promise( 
-			(resolve, reject) =>  {
-				if (cancelled) {
-					reject('promise cancelled')					        
-				} else {
-					timerId = setTimeout(
-						() => { 
-							timerId = 0 
-							f();
-							resolve('');
-						}, millisec)
-				}
-			}
-		),
-		cancel: () => {
-			if (timerId > 0) {
-				clearTimeout(timerId)
-				cancelled = true
-			}
-		}
-	}
-}

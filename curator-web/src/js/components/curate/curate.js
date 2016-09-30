@@ -9,7 +9,7 @@ import NewVideoFormContainer   from '../youtube/newVideoFormContainer'
 import NewChannelFormContainer from '../common/newChannelFormContainer'
 import Channels                from '../common/channels'
 import FilmBubbleContainer     from '../common/filmBubbleContainer'
-
+import EditChannel             from '../common/editChannel'
 
 const Curate = React.createClass({
     propTypes: {
@@ -19,13 +19,14 @@ const Curate = React.createClass({
         deletePlaylist: React.PropTypes.func.isRequired,
         deleteFilmFromCurateList: React.PropTypes.func.isRequired,
         addNewList: React.PropTypes.func.isRequired,
-        makeCurrentTarget: React.PropTypes.func.isRequired
+        makeCurrentTarget: React.PropTypes.func.isRequired,
+        saveChannelDetails: React.PropTypes.func.isRequired
     },
 	saveFlix() {
         this.props.saveCuratedListToDB(this.props.channel, this.props.curationList)
     },
 	render() {
-        console.log("curate.js: ", this.props.channels);
+        console.log("curate.js: ", this.props.curationList);
                 
         return (
                 <section style={{position:'relative'}}>
@@ -41,6 +42,12 @@ const Curate = React.createClass({
                                 removeChannel={this.props.removeChannel}/>
                         </div>
                     	<div className="col-lg-6 col-md-6">
+                            <EditChannel 
+                                channel={this.props.channel} 
+                                channelDetails={this.props.curationList.details} 
+                                saveChannelDetails={this.props.saveChannelDetails}
+                            />
+
                             <CurationShelf 
                                 channel={this.props.channel}
                                 curationList={this.props.curationList} 
