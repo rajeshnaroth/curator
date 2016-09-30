@@ -69,7 +69,6 @@ export const updateChannelAndSaveToDB = (channel, channelDetails) => {
     return new Promise((resolve, reject) => {
             let listToStore = JSON.parse(localStorage.getItem(FLIXLIST))
             // @todo move this logic out later
-            console.log("persistence.js: updateChannelAndSaveToDB ", channel, channelDetails);
             listToStore[channel].details = Object.assign(listToStore[channel].details, channelDetails) // merge       
             localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
             resolve(listToStore[channel]);
