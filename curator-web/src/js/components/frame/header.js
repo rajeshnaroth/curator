@@ -1,6 +1,4 @@
 import React from 'react'
-import Logo from './logo'
-import GoogleLogin from './googleLogin'
 import { Link } from 'react-router'
 
 const Header = () => (

@@ -1,6 +1,6 @@
 const FLIXLIST = 'flixlist'
 
-import {customPlaylistId} from '../utils'
+import {customPlaylistId, customChannelId} from '../utils'
 
 export const saveChannelToDB = (channel, curatedList) => {
     return new Promise((resolve, reject) => {
@@ -55,8 +55,7 @@ export const getChannelSummaryFromDB = () => {
 export const deleteChannelAndSaveToDB = (channel) => {
     return new Promise((resolve, reject) => {
             let listToStore = JSON.parse(localStorage.getItem(FLIXLIST))
-            // @todo move this logic out later
-            if (channel !== 'default') {
+            if (Object.keys(listToStore).length > 1) {
                 delete listToStore[channel]
             }
             localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
@@ -64,21 +63,25 @@ export const deleteChannelAndSaveToDB = (channel) => {
             resolve(Object.keys(listToStore).map(channelKey => ({id: channelKey, title: listToStore[channelKey].details.title }) ))
         })
 }
-
+/*
 export const updateChannelAndSaveToDB = (channel, channelDetails) => {
     return new Promise((resolve, reject) => {
             let listToStore = JSON.parse(localStorage.getItem(FLIXLIST))
+            console.log("persistence.js: ", listToStore);
+                    
             // @todo move this logic out later
             listToStore[channel].details = Object.assign(listToStore[channel].details, channelDetails) // merge       
             localStorage.setItem(FLIXLIST, JSON.stringify(listToStore))
             resolve(listToStore[channel]);
         })
 }
-
+*/
 export const addChannelAndSaveToDB = (channel) => {
+    const channelId = customChannelId()
+
     return new Promise((resolve, reject) => {
             let listToStore = JSON.parse(localStorage.getItem(FLIXLIST)) || {}
-            listToStore[channel] = { 
+            listToStore[channelId] = { 
                 details:{title:channel},
                 playlists: [
                     { 

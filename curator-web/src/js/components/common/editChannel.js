@@ -13,11 +13,13 @@ const EditChannel = React.createClass({
 	},
 	getInitialState() {
 		return {
-			title: '',
-			description: ''
+			title: this.props.channelDetails.title,
+			description: this.props.channelDetails.description
 		}
 	},
 	componentWillReceiveProps(props) {
+		console.log("editChannel.js: componentWillReceiveProps ", props);
+		        
 		this.setState({title:props.channelDetails.title || this.props.channel || ''})
 		this.setState({description:props.channelDetails.description || ''})
 	},
@@ -57,6 +59,7 @@ const EditChannel = React.createClass({
 							size="15" 
 							isTextArea={true} 
 							name="editChannelDescr" 
+							placeholder="Click to edit Description"
 							presetValue={this.state.description || ''} 
 							binder={this.setStateProp('description')}
 							onEnter={this.saveDescription}

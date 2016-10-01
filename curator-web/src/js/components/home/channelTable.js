@@ -5,10 +5,13 @@ import ChannelPreview from './channelPreview'
 let keyId = newId('chan-');
 let cpKeyId = newId('cp-');
 
+const numFilms = (channel) => channel.playlists.map(pl => pl.films.length).reduce(((prev, added) => prev + added), 0)
+
+
 const ChannelTable = ({ channelDetails }) => { 
-	let channelList = Object.keys(channelDetails)
-	console.log("channelTable.js: ", channelList, channelDetails);
-	        
+	let channelList = Object.keys(channelDetails)	
+	console.log("channelTable.js: ", channelDetails);
+	                          
     return (
     	<section className="channelTable">
 		<ul >
@@ -20,7 +23,8 @@ const ChannelTable = ({ channelDetails }) => {
 						<p>{channelDetails[ch].details.description}</p>
 					</div>
 					<div className="col-lg-9 col-md-9 channelStrip">
-							<ChannelPreview key={cpKeyId()} playlists={channelDetails[ch].playlists} />
+						<ChannelPreview key={cpKeyId()} playlists={channelDetails[ch].playlists} />
+						<h5>{numFilms(channelDetails[ch])} films</h5>
 					</div>
 				</Link>
 				</li>

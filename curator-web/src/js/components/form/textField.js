@@ -10,15 +10,15 @@ const TextField = React.createClass({
 		}
 	},
 	render() {
-		let pval = this.props.presetValue
-
+		let pval = this.props.presetValue        
 		return (<input 
 					value={pval}
 					size={this.props.size} 
 					id={this.props.name} 
 					name={this.props.name} 
 					onChange={this.valueChange} 
-					onKeyPress={this.keyPress} /> 
+					onKeyPress={this.keyPress} 
+					placeholder={this.props.placeholder}/> 
 				)
 	}
 })

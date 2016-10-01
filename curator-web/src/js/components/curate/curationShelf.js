@@ -39,9 +39,10 @@ const CurationShelf = React.createClass({
                         })
                     }
                 </div>
-                <div>
-                    <label for="newPlaylist">Add New Category: </label>
-                    <TextField size="11" name="newListName" onEnter={(val) => this.props.addNewList(val)} />
+                <div className="newCategoryForm">
+                    <label for="newPlaylist">New Category: </label>
+                    <TextField size="20" name="newListName" onEnter={(val) => this.props.addNewList(val)} />
+                    <button onClick={ () => this.props.addNewList(val) }>Add</button>
                 </div>
             </section>)
     }

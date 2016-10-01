@@ -22,8 +22,10 @@ export const getJson = (input) => {
     })
 }
 
+export const timeBasedId = (prefix) => () => prefix + (new Date()).getMilliseconds()
 export const getAllJson = (inputList) => Promise.all(inputList.map(p => getJson(p)))
-export const customPlaylistId = () => Math.floor((Math.random() * 1000000) + 100)
+export const customPlaylistId = timeBasedId('pl')
+export const customChannelId = timeBasedId('ch')
 
 export const toPromise = (inputFun) => {
         //return Promise.resolve(inputFun.apply(null, arguments))
@@ -39,7 +41,5 @@ export const newId = (prefix) => {
 	return () => prefix + (key++)
 }
 
-export const timeBasedId = (prefix) => {
-	return () => prefix + (new Date()).getMilliseconds()
-}
+
 

@@ -100,11 +100,14 @@ ul#footer, ul.mainNav {
 
 .playlistForm {
   label { width: 30em; }
-  input{width: 90%; background-color: #cccccc;}
+  input{width: 80%; background-color: #dddddd;}
 }
 .newChannelForm {
   label { width: 30em; }
-  input{width: 100%; background-color: #cccccc;}
+  input{width: 70%; background-color: #dddddd;}
+}
+.newCategoryForm {
+  input{width: 70%; background-color: #dddddd;}
 }
 
 .curatorPlaylist {

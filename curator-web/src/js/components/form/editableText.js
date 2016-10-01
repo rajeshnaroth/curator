@@ -51,7 +51,7 @@ const EditableText = React.createClass({
 			onBlur:this.focusOut
 		}
 		if (this.props.isTextArea) {
-			return (<textarea type="text" {...inputProps} value={this.state.value} placeholder="Click to Edit"></textarea>)
+			return (<textarea type="text" {...inputProps} value={this.state.value} placeholder={this.props.placeholder || 'Click to Edit'}></textarea>)
 		} else {
 			return (<input type="text" value={this.state.value} {...inputProps} />)
 		}

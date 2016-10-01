@@ -62,17 +62,19 @@ const CurationRack = React.createClass({
     },
     render() {
         console.log("curationRack.js: render");
-                
-        let filmlist = this.props.rack.films.map((film, i) => (
-            <li key={'filmr-'+ i}>
-                <span>{film.title} </span>
-                <div className="itemControls">
-                    <span className="fakeLinkIcon glyphicon glyphicon-arrow-up" onClick={this.moveFilmUp(this.props.rack, film, this)}></span>
-                    <span className="fakeLinkIcon glyphicon glyphicon-arrow-down" onClick={this.moveFilmDown(this.props.rack, film, this)}></span>
-                    <span className="fakeLinkIcon glyphicon glyphicon-trash" onClick={this.deleteFilm(this.props.rack, film, this)}></span>
-                </div>
-            </li>
+        let filmlist = <p> There are no films added in this category. You can search for channels and add them here </p>        
+        if (this.props.rack.films.length) { 
+            filmlist = this.props.rack.films.map((film, i) => (
+                <li key={'filmr-'+ i}>
+                    <span>{film.title} </span>
+                    <div className="itemControls">
+                        <span className="fakeLinkIcon glyphicon glyphicon-arrow-up" onClick={this.moveFilmUp(this.props.rack, film, this)}></span>
+                        <span className="fakeLinkIcon glyphicon glyphicon-arrow-down" onClick={this.moveFilmDown(this.props.rack, film, this)}></span>
+                        <span className="fakeLinkIcon glyphicon glyphicon-trash" onClick={this.deleteFilm(this.props.rack, film, this)}></span>
+                    </div>
+                </li>
             ))
+        }
         return (
             <section className="curatorPlaylist" 
                 style={this.state.currentStyle} 

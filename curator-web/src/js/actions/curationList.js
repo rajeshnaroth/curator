@@ -20,6 +20,8 @@ export const MOVE_PLAYLIST_DOWN_IN_CURATION_LIST = 'MOVE_PLAYLIST_DOWN_IN_CURATI
 export const ADD_NEW_EMPTY_PLAYLIST_IN_CURATION_LIST = 'ADD_NEW_EMPTY_PLAYLIST_IN_CURATION_LIST'
 export const CHANGE_PLAYLIST_TITLE_IN_CURATION_LIST = 'CHANGE_PLAYLIST_TITLE_IN_CURATION_LIST'
 
+export const UPDATE_CHANNEL_DETAILS_IN_CURATION_LIST = 'UPDATE_CHANNEL_DETAILS_IN_CURATION_LIST'
+
 // Load
 export const getListFromDBForCuration = (channel) => {	        
 	return (dispatch) => {
@@ -160,3 +162,22 @@ export const changePlaylistTitle = (channel, playlist, title) =>  {
 }
 
 export const setTargetPlayList = (channel, playlist) => (dispatch) => dispatch({type: SET_TARGET_PLAYLIST_IN_CURATION_LIST, playlist: playlist})
+/*
+export const updateChannelDetails = (channel, channelDetails) => (dispatch) => {
+	return updateChannelAndSaveToDB(channel, channelDetails).then(playlistData => {
+			dispatch({type: INITIALIZED_CURATION_LIST, result: playlistData})
+	}).catch((err) => console.log(err))
+}
+*/
+
+export const updateChannelDetailsInCurateList = (channel, channelDetails) =>  {
+	return (dispatch, getState) => {
+		Promise.all([
+			dispatch({type: UPDATE_CHANNEL_DETAILS_IN_CURATION_LIST, channel:channel, channelDetails: channelDetails})
+		])
+		.then(() => { 
+			saveChannelToDB(channel, getState().curationList)
+		})
+		.catch((err) => console.log(err))
+	}
+}

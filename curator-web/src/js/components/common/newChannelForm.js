@@ -5,11 +5,14 @@ const NewChannelForm = React.createClass({
 
 	render() {
 		return (
-			<div className="playlistForm">
-				<div className="playlistForm">
-					<label for="newChannelName">New Channel: </label>
-					   <TextField size="15" isTextArea={false} name="newChannelName" onEnter={(val) => this.props.addChannel(val)}/>
-				</div>
+			<div className="newChannelForm">
+				<label for="newChannelName">Add New Channel: </label>
+			    <TextField 
+			   		isTextArea={false} 
+			   		name="newChannelName" 
+			   		placeholder="Type a new Channel Name"
+			   		onEnter={(val) => this.props.addChannel(val)}/>
+			   	<button onClick={ () => this.props.addChannel(val) }>Add</button>
 			</div>
 		)
 	}

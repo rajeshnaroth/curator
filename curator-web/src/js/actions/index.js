@@ -9,8 +9,7 @@ export {
 	fetchChannelDetailsFromDB,
 	fetchChannelsFromDB,
 	addChannel,
-	deleteChannel,
-	updateChannelDetails
+	deleteChannel
 } from './channels'
 
 export {
@@ -26,6 +25,7 @@ export {
 	MOVE_PLAYLIST_DOWN_IN_CURATION_LIST,
 	ADD_NEW_EMPTY_PLAYLIST_IN_CURATION_LIST,
 	CHANGE_PLAYLIST_TITLE_IN_CURATION_LIST,
+	UPDATE_CHANNEL_DETAILS_IN_CURATION_LIST,
 
 	getListFromDBForCuration, 
 	deletePlaylist, 
@@ -39,7 +39,9 @@ export {
 	addPlaylistToCurationList,
 	addFilmToTargetCurationList, 
 	changePlaylistTitle, 
-	setTargetPlayList
+	setTargetPlayList,
+
+	updateChannelDetailsInCurateList
 } from './curationList'
 
 export {

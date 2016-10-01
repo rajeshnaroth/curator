@@ -21,7 +21,7 @@ module.exports = {
               'NODE_ENV': JSON.stringify('development')
             }
         })
-        ,new webpack.HotModuleReplacementPlugin()
+        //,new webpack.HotModuleReplacementPlugin()
         
     ],
     module:{
@@ -29,8 +29,8 @@ module.exports = {
             {
                 test : /\.js$/,
                 include: APP_DIR,
-                //loaders : ['babel'],
-                loaders : ['react-hot', 'babel'],
+                loaders : ['babel'],
+                //loaders : ['react-hot', 'babel'],
                 // query:{
                 //     presets:['es2015', 'react']
                 // }
@@ -74,7 +74,7 @@ module.exports = {
             }
         ]
     },
-    devtool: 'inline-source-map',
+    //devtool: 'inline-source-map',
     //devtool: 'cheap-module-source-map',
     externals: { 'React': 'react'},
     resolve: {

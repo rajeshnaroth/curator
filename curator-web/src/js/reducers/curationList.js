@@ -13,10 +13,12 @@ import {
     MOVE_PLAYLIST_DOWN_IN_CURATION_LIST,
     DELETE_FILM_FROM_CURATION_LIST,
     MOVE_FILM_UP_IN_CURATION_LIST,
-    MOVE_FILM_DOWN_IN_CURATION_LIST 
+    MOVE_FILM_DOWN_IN_CURATION_LIST,
+
+    UPDATE_CHANNEL_DETAILS_IN_CURATION_LIST
 } from '../actions'
 
-const customPlaylistId = () => Math.floor((Math.random() * 1000000) + 100)
+const customPlaylistId = () => 'pl-' + Math.floor((Math.random() * 100000000) + 100)
 
 // convenience function. impure
 const swap = (arrayToMutate, index1, index2) => {
@@ -24,13 +26,18 @@ const swap = (arrayToMutate, index1, index2) => {
     arrayToMutate[index1] = arrayToMutate[index2]
     arrayToMutate[index2] = temp
 }
-
+const initPlaylistId = customPlaylistId()
 const initialState = {
-    currentTarget:'',
+    currentTarget:initPlaylistId,
     details:{
-        title:'Untitled',
+        title:'My First Channel',
+        description:''
     },
-    playlists:[]
+    playlists:[{
+        films:[], 
+        genre:"Category 1", 
+        playlistId:initPlaylistId
+    }]
 }
 
 const curationList = (state = initialState, action) => {
@@ -164,6 +171,13 @@ const curationList = (state = initialState, action) => {
                 return pl
             })
             
+            return retVal
+        }
+        case UPDATE_CHANNEL_DETAILS_IN_CURATION_LIST: {
+            let retVal = Object.assign({}, state)
+            retVal.details = Object.assign(retVal.details, action.channelDetails)
+            console.log("curationList.js: ", state, retVal);
+                                            
             return retVal
         }
         case SAVE_FLIX:  
